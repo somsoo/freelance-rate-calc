@@ -16,16 +16,172 @@
     </style>
 </head>
 <body>
-    <div class="ad-slot">구글 애드센스 (상단)</div>
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2228289204702106" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2228289204702106" crossorigin="anonymous"></script>
     
     <div class="card">
         <h1>프리랜서 외주 단가 역산기</h1>
         <p>목표 월수입 기반으로 프리랜서 외주 프로젝트 최소 단가를 역산합니다.</p>
         
-        <div style="padding: 40px 0; border: 1px solid #e5e7eb; border-radius: 10px; margin: 20px 0; background: #f3f4f6;">
-            <!-- UI 로직 들어갈 자리 -->
-            <p style="color: #6b7280; font-weight: bold;">[계산기 / 변환기 UI 영역]</p>
+        <div id="app" style="font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f7f9fc; padding: 20px; border-radius: 12px; max-width: 450px; margin: 30px auto; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; gap: 18px; color: #333; box-sizing: border-box;">
+    <div style="text-align: center; margin-bottom: 10px;">
+        <h1 style="font-size: 2.2em; color: #4a69bd; margin-bottom: 5px; font-weight: 700;">프리랜서 외주 단가 역산기</h1>
+        <p style="font-size: 0.95em; color: #666; line-height: 1.5;">목표 월수입을 기반으로 프로젝트의 최소 단가를 역산해 드립니다.</p>
+    </div>
+
+    <div style="background-color: #ffffff; padding: 18px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);">
+        <h2 style="font-size: 1.4em; color: #333; margin-bottom: 15px; border-bottom: 2px solid #e0e0e0; padding-bottom: 10px;">나의 기준 설정</h2>
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <div style="display: flex; flex-direction: column;">
+                <label for="targetMonthlyIncome" style="font-size: 0.95em; margin-bottom: 6px; color: #555; font-weight: 500;">목표 월수입 (원)</label>
+                <input type="number" id="targetMonthlyIncome" value="5000000" style="padding: 12px; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 1em; color: #333; outline: none; transition: border-color 0.3s; width: 100%; box-sizing: border-box;">
+            </div>
+            <div style="display: flex; flex-direction: column;">
+                <label for="monthlyWorkingDays" style="font-size: 0.95em; margin-bottom: 6px; color: #555; font-weight: 500;">월 평균 근무일수 (일)</label>
+                <input type="number" id="monthlyWorkingDays" value="20" style="padding: 12px; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 1em; color: #333; outline: none; transition: border-color 0.3s; width: 100%; box-sizing: border-box;">
+            </div>
+            <div style="display: flex; flex-direction: column;">
+                <label for="dailyWorkingHours" style="font-size: 0.95em; margin-bottom: 6px; color: #555; font-weight: 500;">일 평균 근무시간 (시간)</label>
+                <input type="number" id="dailyWorkingHours" value="8" style="padding: 12px; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 1em; color: #333; outline: none; transition: border-color 0.3s; width: 100%; box-sizing: border-box;">
+            </div>
+            <div style="display: flex; flex-direction: column;">
+                <label for="monthlyOverhead" style="font-size: 0.95em; margin-bottom: 6px; color: #555; font-weight: 500;">월별 간접비/경비 (원)</label>
+                <input type="number" id="monthlyOverhead" value="500000" style="padding: 12px; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 1em; color: #333; outline: none; transition: border-color 0.3s; width: 100%; box-sizing: border-box;">
+            </div>
+            <div style="display: flex; flex-direction: column;">
+                <label for="profitMargin" style="font-size: 0.95em; margin-bottom: 6px; color: #555; font-weight: 500;">이윤율 (%)</label>
+                <input type="number" id="profitMargin" value="20" style="padding: 12px; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 1em; color: #333; outline: none; transition: border-color 0.3s; width: 100%; box-sizing: border-box;">
+            </div>
         </div>
+    </div>
+
+    <div style="background-color: #ffffff; padding: 18px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);">
+        <h2 style="font-size: 1.4em; color: #333; margin-bottom: 15px; border-bottom: 2px solid #e0e0e0; padding-bottom: 10px;">프로젝트 정보</h2>
+        <div style="display: flex; flex-direction: column;">
+            <label for="projectEffortManDays" style="font-size: 0.95em; margin-bottom: 6px; color: #555; font-weight: 500;">프로젝트 예상 소요 공수 (맨-일)</label>
+            <input type="number" id="projectEffortManDays" value="10" style="padding: 12px; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 1em; color: #333; outline: none; transition: border-color 0.3s; width: 100%; box-sizing: border-box;">
+        </div>
+    </div>
+
+    <button id="calculateBtn" style="background-color: #4CAF50; color: white; padding: 15px 25px; border: none; border-radius: 8px; font-size: 1.1em; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease; box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3); width: 100%; box-sizing: border-box;">
+        단가 계산하기
+    </button>
+
+    <div id="results" style="background-color: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); display: flex; flex-direction: column; gap: 15px; margin-top: 15px; border: 1px dashed #cfd8dc; width: 100%; box-sizing: border-box;">
+        <h2 style="font-size: 1.6em; color: #4a69bd; margin-bottom: 10px; text-align: center; font-weight: 700;">계산 결과</h2>
+        <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px dotted #e0e0e0;">
+            <span style="font-size: 1em; color: #555;">나의 최소 시간당 단가:</span>
+            <span id="overallMinHourlyRate" style="font-size: 1.1em; color: #333; font-weight: 600;">0원</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px dotted #e0e0e0;">
+            <span style="font-size: 1em; color: #555;">나의 최소 일당 단가:</span>
+            <span id="overallMinDailyRate" style="font-size: 1.1em; color: #333; font-weight: 600;">0원</span>
+        </div>
+        <div style="height: 10px; border-bottom: 2px dashed #a7d9b9; margin: 10px 0;"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px dotted #e0e0e0;">
+            <span style="font-size: 1em; color: #555;">프로젝트 최소 시간당 단가:</span>
+            <span id="projectMinHourlyRate" style="font-size: 1.1em; color: #333; font-weight: 600;">0원</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px dotted #e0e0e0;">
+            <span style="font-size: 1em; color: #555;">프로젝트 최소 일당 단가:</span>
+            <span id="projectMinDailyRate" style="font-size: 1.1em; color: #333; font-weight: 600;">0원</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; background-color: #e8f5e9; padding: 15px; border-radius: 8px;">
+            <span style="font-size: 1.2em; color: #2e7d32; font-weight: 700;">최소 프로젝트 단가:</span>
+            <span id="minimumProjectPrice" style="font-size: 1.6em; color: #2e7d32; font-weight: 800;">0원</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const targetMonthlyIncomeEl = document.getElementById('targetMonthlyIncome');
+        const monthlyWorkingDaysEl = document.getElementById('monthlyWorkingDays');
+        const dailyWorkingHoursEl = document.getElementById('dailyWorkingHours');
+        const monthlyOverheadEl = document.getElementById('monthlyOverhead');
+        const profitMarginEl = document.getElementById('profitMargin');
+        const projectEffortManDaysEl = document.getElementById('projectEffortManDays');
+        const calculateBtn = document.getElementById('calculateBtn');
+
+        const overallMinHourlyRateEl = document.getElementById('overallMinHourlyRate');
+        const overallMinDailyRateEl = document.getElementById('overallMinDailyRate');
+        const projectMinHourlyRateEl = document.getElementById('projectMinHourlyRate');
+        const projectMinDailyRateEl = document.getElementById('projectMinDailyRate');
+        const minimumProjectPriceEl = document.getElementById('minimumProjectPrice');
+
+        // Initial calculation on load for default values
+        calculatePrice();
+
+        calculateBtn.addEventListener('click', calculatePrice);
+
+        // Add event listeners for input changes to re-calculate automatically
+        [
+            targetMonthlyIncomeEl,
+            monthlyWorkingDaysEl,
+            dailyWorkingHoursEl,
+            monthlyOverheadEl,
+            profitMarginEl,
+            projectEffortManDaysEl
+        ].forEach(inputEl => {
+            inputEl.addEventListener('input', calculatePrice);
+        });
+
+        function calculatePrice() {
+            const targetMonthlyIncome = parseFloat(targetMonthlyIncomeEl.value);
+            const monthlyWorkingDays = parseFloat(monthlyWorkingDaysEl.value);
+            const dailyWorkingHours = parseFloat(dailyWorkingHoursEl.value);
+            const monthlyOverhead = parseFloat(monthlyOverheadEl.value);
+            const profitMarginPercent = parseFloat(profitMarginEl.value);
+            const projectEffortManDays = parseFloat(projectEffortManDaysEl.value);
+
+            // Basic validation
+            if (isNaN(targetMonthlyIncome) || isNaN(monthlyWorkingDays) || isNaN(dailyWorkingHours) || 
+                isNaN(monthlyOverhead) || isNaN(profitMarginPercent) || isNaN(projectEffortManDays) ||
+                targetMonthlyIncome < 0 || monthlyWorkingDays <= 0 || dailyWorkingHours <= 0 || 
+                monthlyOverhead < 0 || profitMarginPercent < 0 || projectEffortManDays <= 0) {
+                
+                const invalidMsg = '유효하지 않은 입력';
+                overallMinHourlyRateEl.textContent = invalidMsg;
+                overallMinDailyRateEl.textContent = invalidMsg;
+                projectMinHourlyRateEl.textContent = invalidMsg;
+                projectMinDailyRateEl.textContent = invalidMsg;
+                minimumProjectPriceEl.textContent = invalidMsg;
+                return;
+            }
+
+            // 1. 순수 월수입 (간접비 제외)
+            const netMonthlyIncome = targetMonthlyIncome - monthlyOverhead;
+            
+            // 2. 나의 실질적인 시간/일당 단가 계산 (이윤율 포함 전)
+            // 0으로 나누는 경우 방지
+            const requiredDailyRate = netMonthlyIncome / monthlyWorkingDays;
+            const requiredHourlyRate = requiredDailyRate / dailyWorkingHours;
+
+            // 3. 프로젝트의 기본 비용 계산 (이윤율 포함 전)
+            const baseProjectCost = requiredDailyRate * projectEffortManDays;
+
+            // 4. 이윤율을 포함한 최종 프로젝트 단가
+            const minimumProjectPrice = baseProjectCost * (1 + profitMarginPercent / 100);
+
+            // 5. 프로젝트 기준 시간/일당 단가 (이윤율 포함 후)
+            const totalProjectHours = projectEffortManDays * dailyWorkingHours;
+            const projectMinDailyRate = minimumProjectPrice / projectEffortManDays;
+            const projectMinHourlyRate = totalProjectHours > 0 ? minimumProjectPrice / totalProjectHours : 0;
+
+            // Display results
+            overallMinHourlyRateEl.textContent = formatCurrency(requiredHourlyRate) + '원';
+            overallMinDailyRateEl.textContent = formatCurrency(requiredDailyRate) + '원';
+            projectMinHourlyRateEl.textContent = formatCurrency(projectMinHourlyRate) + '원';
+            projectMinDailyRateEl.textContent = formatCurrency(projectMinDailyRate) + '원';
+            minimumProjectPriceEl.textContent = formatCurrency(minimumProjectPrice) + '원';
+        }
+
+        function formatCurrency(amount) {
+            return Math.round(amount).toLocaleString('ko-KR');
+        }
+    });
+</script>
 
         <button class="btn-share" onclick="shareApp()">
             앱 공유하기 (Web Share API)
@@ -33,7 +189,9 @@
     </div>
 
     <div class="coupang-banner">쿠팡 파트너스 맞춤형 기획전 배너</div>
-    <div class="ad-slot">구글 애드센스 (하단)</div>
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2228289204702106" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2228289204702106" crossorigin="anonymous"></script>
 
     <!-- JSON-LD 구조화 데이터 -->
     <script type="application/ld+json">
