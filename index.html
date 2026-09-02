@@ -33,7 +33,218 @@
 
     <!-- Main Logic Container -->
     <div class="w-full max-w-2xl glass-card p-6 md:p-8 mb-8">
-        <p class='text-red-500 font-bold text-center'>서버 에러가 발생했습니다. 잠시 후 다시 시도해주세요.</p>
+        <div class="p-6">
+    <h2 class="text-3xl font-extrabold text-gray-900 mb-6 text-center">프리랜서 외주 단가 역산기</h2>
+    <p class="text-gray-600 text-center mb-8">목표 월수입을 달성하기 위한 최소 외주 단가를 계산합니다.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <!-- Target Monthly Net Income -->
+        <div>
+            <label for="targetMonthlyNetIncome" class="block text-sm font-medium text-gray-700 mb-2">목표 월 순수입 (₩)</label>
+            <input type="number" id="targetMonthlyNetIncome" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 shadow-sm" placeholder="예: 5,000,000" value="5000000">
+        </div>
+
+        <!-- Monthly Expenses -->
+        <div>
+            <label for="monthlyExpenses" class="block text-sm font-medium text-gray-700 mb-2">월 고정 지출 (₩)</label>
+            <input type="number" id="monthlyExpenses" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 shadow-sm" placeholder="예: 500,000" value="500000">
+        </div>
+
+        <!-- Tax Rate -->
+        <div>
+            <label for="taxRate" class="block text-sm font-medium text-gray-700 mb-2">예상 세금 비율 (%)</label>
+            <input type="number" id="taxRate" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 shadow-sm" placeholder="예: 5" value="5">
+        </div>
+
+        <!-- Profit Margin -->
+        <div>
+            <label for="profitMargin" class="block text-sm font-medium text-gray-700 mb-2">희망 순이익 마진 (%)</label>
+            <input type="number" id="profitMargin" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 shadow-sm" placeholder="예: 15" value="15">
+        </div>
+
+        <!-- Working Days per Month -->
+        <div>
+            <label for="workingDaysPerMonth" class="block text-sm font-medium text-gray-700 mb-2">월 근무 일수</label>
+            <input type="number" id="workingDaysPerMonth" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 shadow-sm" placeholder="예: 20" value="20">
+        </div>
+
+        <!-- Working Hours per Day -->
+        <div>
+            <label for="workingHoursPerDay" class="block text-sm font-medium text-gray-700 mb-2">일 근무 시간</label>
+            <input type="number" id="workingHoursPerDay" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 shadow-sm" placeholder="예: 8" value="8">
+        </div>
+
+        <!-- Non-billable Hours Ratio -->
+        <div>
+            <label for="nonBillableRatio" class="block text-sm font-medium text-gray-700 mb-2">비업무 시간 비율 (%)</label>
+            <input type="number" id="nonBillableRatio" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 shadow-sm" placeholder="예: 25" value="25">
+            <p class="text-xs text-gray-500 mt-1">관리, 학습, 영업 등 수익과 직접 연결되지 않는 활동에 소요되는 시간 비율</p>
+        </div>
+    </div>
+
+    <div class="flex justify-center gap-4 mt-6">
+        <button id="calculateBtn" class="bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg hover:bg-blue-700 transition duration-300 shadow-md">단가 계산하기</button>
+        <button id="resetBtn" class="bg-gray-200 text-gray-700 font-semibold py-3 px-8 rounded-lg hover:bg-gray-300 transition duration-300 shadow-md">초기화</button>
+    </div>
+
+    <div id="results" class="receipt mt-12 bg-gray-50 border border-gray-200 rounded-lg p-6 shadow-xl hidden">
+        <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">계산 결과</h3>
+
+        <div class="space-y-4 text-gray-700">
+            <div class="flex justify-between items-center pb-2 border-b border-gray-200">
+                <span class="font-medium text-lg">필요 월 매출</span>
+                <span id="requiredMonthlyRevenue" class="text-xl font-bold text-blue-700">0원</span>
+            </div>
+
+            <div class="flex justify-between items-center">
+                <span class="font-medium text-lg">월 총 근무 시간</span>
+                <span id="totalWorkingHours" class="text-lg font-semibold">0시간</span>
+            </div>
+            <div class="flex justify-between items-center pb-2 border-b border-gray-200">
+                <span class="font-medium text-lg">월 순수 청구 가능 시간</span>
+                <span id="billableHours" class="text-lg font-semibold text-green-700">0시간</span>
+            </div>
+
+            <div class="flex justify-between items-center">
+                <span class="font-medium text-lg">최소 시간당 단가</span>
+                <span id="hourlyRate" class="text-xl font-bold text-blue-700">0원/시간</span>
+            </div>
+            <div class="flex justify-between items-center pb-2 border-b border-gray-200">
+                <span class="font-medium text-lg">최소 일당 단가</span>
+                <span id="dailyRate" class="text-xl font-bold text-blue-700">0원/일</span>
+            </div>
+
+            <div class="bg-blue-50 p-4 rounded-md mt-6 text-center">
+                <p class="text-blue-800 text-base font-semibold">이 단가는 목표 월수입을 달성하기 위한 최소 기준입니다. <br>프로젝트 난이도, 시장 상황, 경력 등을 고려하여 유연하게 조정하세요.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const targetMonthlyNetIncomeInput = document.getElementById('targetMonthlyNetIncome');
+    const monthlyExpensesInput = document.getElementById('monthlyExpenses');
+    const taxRateInput = document.getElementById('taxRate');
+    const profitMarginInput = document.getElementById('profitMargin');
+    const workingDaysPerMonthInput = document.getElementById('workingDaysPerMonth');
+    const workingHoursPerDayInput = document.getElementById('workingHoursPerDay');
+    const nonBillableRatioInput = document.getElementById('nonBillableRatio');
+
+    const calculateBtn = document.getElementById('calculateBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const resultsDiv = document.getElementById('results');
+
+    const requiredMonthlyRevenueSpan = document.getElementById('requiredMonthlyRevenue');
+    const totalWorkingHoursSpan = document.getElementById('totalWorkingHours');
+    const billableHoursSpan = document.getElementById('billableHours');
+    const hourlyRateSpan = document.getElementById('hourlyRate');
+    const dailyRateSpan = document.getElementById('dailyRate');
+
+    // Function to format numbers as currency (Korean Won)
+    const formatCurrency = (number) => {
+        return new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(number);
+    };
+
+    const calculateRates = () => {
+        const targetMonthlyNetIncome = parseFloat(targetMonthlyNetIncomeInput.value) || 0;
+        const monthlyExpenses = parseFloat(monthlyExpensesInput.value) || 0;
+        const taxRate = parseFloat(taxRateInput.value) || 0;
+        const profitMargin = parseFloat(profitMarginInput.value) || 0;
+        const workingDaysPerMonth = parseFloat(workingDaysPerMonthInput.value) || 0;
+        const workingHoursPerDay = parseFloat(workingHoursPerDayInput.value) || 0;
+        const nonBillableRatio = parseFloat(nonBillableRatioInput.value) || 0;
+
+        // --- Input Validation ---
+        if (targetMonthlyNetIncome <= 0) {
+            alert('목표 월 순수입은 0보다 커야 합니다.');
+            resultsDiv.classList.add('hidden');
+            return;
+        }
+        if (workingDaysPerMonth <= 0) {
+            alert('월 근무 일수는 0보다 커야 합니다.');
+            resultsDiv.classList.add('hidden');
+            return;
+        }
+        if (workingHoursPerDay <= 0) {
+            alert('일 근무 시간은 0보다 커야 합니다.');
+            resultsDiv.classList.add('hidden');
+            return;
+        }
+        if (taxRate < 0 || taxRate >= 100) {
+            alert('세금 비율은 0% 이상 100% 미만이어야 합니다.');
+            resultsDiv.classList.add('hidden');
+            return;
+        }
+        if (profitMargin < 0 || profitMargin >= 100) {
+            alert('희망 순이익 마진은 0% 이상 100% 미만이어야 합니다.');
+            resultsDiv.classList.add('hidden');
+            return;
+        }
+        if (nonBillableRatio < 0 || nonBillableRatio >= 100) {
+            alert('비업무 시간 비율은 0% 이상 100% 미만이어야 합니다. (모든 시간이 비업무일 수는 없습니다)');
+            resultsDiv.classList.add('hidden');
+            return;
+        }
+
+        // --- Calculation Logic ---
+
+        // 1. Calculate the base income needed to cover target net income and monthly expenses
+        // This is the money you want to *keep* after all deductions and profits.
+        let requiredBaseIncome = targetMonthlyNetIncome + monthlyExpenses;
+
+        // 2. Adjust for tax rate: Calculate the revenue needed *before* tax
+        // If taxRate is 5%, you need to earn X such that X * (1 - 0.05) = requiredBaseIncome
+        // So, X = requiredBaseIncome / (1 - taxRate/100)
+        const taxMultiplier = (1 - taxRate / 100);
+        const incomeBeforeTax = requiredBaseIncome / (taxMultiplier > 0 ? taxMultiplier : 1); 
+
+        // 3. Adjust for profit margin: Calculate the total revenue needed *before* tax and profit
+        // If profitMargin is 15%, you need to earn Y such that Y * (1 - 0.15) = incomeBeforeTax
+        // So, Y = incomeBeforeTax / (1 - profitMargin/100)
+        const profitMultiplier = (1 - profitMargin / 100);
+        const requiredTotalMonthlyRevenue = incomeBeforeTax / (profitMultiplier > 0 ? profitMultiplier : 1);
+
+        // Calculate total and billable hours
+        const totalWorkingHours = workingDaysPerMonth * workingHoursPerDay;
+        const billableHours = totalWorkingHours * (1 - nonBillableRatio / 100);
+
+        if (billableHours <= 0) {
+            alert('청구 가능한 시간이 없습니다. 월 근무 시간 및 비업무 시간 비율을 확인해주세요.');
+            resultsDiv.classList.add('hidden');
+            return;
+        }
+
+        // Calculate rates
+        const hourlyRate = requiredTotalMonthlyRevenue / billableHours;
+        const dailyRate = hourlyRate * workingHoursPerDay;
+
+        // --- Display Results ---
+        requiredMonthlyRevenueSpan.textContent = formatCurrency(requiredTotalMonthlyRevenue);
+        totalWorkingHoursSpan.textContent = `${totalWorkingHours.toFixed(1)}시간`;
+        billableHoursSpan.textContent = `${billableHours.toFixed(1)}시간`;
+        hourlyRateSpan.textContent = `${formatCurrency(hourlyRate)}/시간`;
+        dailyRateSpan.textContent = `${formatCurrency(dailyRate)}/일`;
+
+        resultsDiv.classList.remove('hidden');
+    };
+
+    const resetForm = () => {
+        targetMonthlyNetIncomeInput.value = '5000000';
+        monthlyExpensesInput.value = '500000';
+        taxRateInput.value = '5';
+        profitMarginInput.value = '15';
+        workingDaysPerMonthInput.value = '20';
+        workingHoursPerDayInput.value = '8';
+        nonBillableRatioInput.value = '25';
+        resultsDiv.classList.add('hidden');
+    };
+
+    calculateBtn.addEventListener('click', calculateRates);
+    resetBtn.addEventListener('click', resetForm);
+
+    // Initial calculation when the page loads with default values
+    document.addEventListener('DOMContentLoaded', calculateRates);
+</script>
     </div>
 
     <!-- Share & Ads -->
