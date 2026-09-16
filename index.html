@@ -35,25 +35,58 @@
 <meta content="https://freelance-rate-calc.enjoy-onepage.com/og-image.png" name="twitter:image"/>
 <!-- JSON-LD 구조화 데이터 (WebApplication Schema) -->
 <script type="application/ld+json">
-    [
-      {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "프리랜서 외주 단가 역산기 | 목표 연봉 기준 적정 시급·프로젝트 견적기",
-        "alternateName": "외주단가계산기",
-        "url": "https://freelance-rate-calc.enjoy-onepage.com/",
-        "description": "희망 월 실수령액 및 목표 연봉, 주당 실 작업시간, 4대보험 및 세금, 운영 경비를 종합 반영하여 외주 프로젝트의 적정 시간당 단가와 계약 견적을 역산합니다.",
-        "applicationCategory": "UtilitiesApplication",
-        "operatingSystem": "All",
-        "inLanguage": "ko",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "KRW"
-        }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "@id": "https://freelance-rate-calc.enjoy-onepage.com/#webapp",
+      "name": "프리랜서 외주 단가 역산기",
+      "url": "https://freelance-rate-calc.enjoy-onepage.com/",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript. Requires HTML5.",
+      "description": "희망 월 실수령액 및 목표 연봉, 주당 실 작업시간, 4대보험 및 세금, 운영 경비를 종합 반영하여 외주 프로젝트의 적정 시간당 단가와 계약 견적을 역산합니다.",
+      "image": "https://freelance-rate-calc.enjoy-onepage.com/og-image.png",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "KRW"
       }
-    ]
-    </script>
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://freelance-rate-calc.enjoy-onepage.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "클라이언트가 무리한 수정을 요구할 때 견적 기준은?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "계약서에 '무상 수정 N회'를 명시하고, 기획 변경에 따른 추가 수정은 시간당 청구 단가(Hourly Rate)를 사전에 명시하여 추가 청구해야 합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "시급 기준과 프로젝트 고정가(Fixed Price) 중 무엇이 유리한가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "업무 범위(Scope)가 명확한 작업은 고정가가 유리하며, 요구사항이 수시로 변하는 개발/디자인은 시급제(타임차지) 계약이 안전합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "계산된 적정 시급보다 시장 단가가 낮을 땐 어떻게 하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "단순 외주 수주를 지양하고 템플릿화, 자동화 도구를 활용해 실작업 시간을 단축하여 실질 시급을 극대화하는 전략을 취해야 합니다."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
         body { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); min-height: 100vh; font-family: 'Pretendard', sans-serif; }
