@@ -157,7 +157,7 @@
 <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 </div>
 <!-- 상단 슬림 띠배너 (헤더 직하단: 50~60px 슬림형) -->
-<div class="glass-card w-full max-w-3xl overflow-hidden mb-6">
+<div class="glass-card w-full max-w-6xl overflow-hidden mb-6">
 <!-- LOGIC START -->
 <script>
           tailwind.config = {
@@ -182,6 +182,8 @@
 <p class="text-slate-500 mt-2 text-sm sm:text-base">목표 월 실수령액을 기반으로 세금, 경비, 비가동 시간을 고려한 현실적인 최소 단가를 계산합니다.</p>
 </div>
 <!-- Form -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<div class="lg:col-span-6 w-full">
 <form class="space-y-6" id="calcForm" onsubmit="return false;">
 <!-- Section 1: Income & Expenses -->
 <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
@@ -252,6 +254,8 @@
             </button>
 </form>
 <!-- Receipt Output Area -->
+</div>
+<div class="lg:col-span-6 lg:sticky lg:top-8 w-full">
 <div class="receipt mt-8 hidden" id="receiptArea">
 <div class="bg-[#FCFBF7] text-slate-800 p-6 sm:p-8 rounded-2xl border-2 border-dashed border-slate-300 relative shadow-inner font-mono text-sm leading-relaxed">
 <!-- Punch Hole Decorator -->
@@ -552,7 +556,9 @@
 </div>
 </section>
 
-      <!-- 2026 Legal Basis & Disclaimer -->
+      </div>
+</div>
+<!-- 2026 Legal Basis & Disclaimer -->
       <div class="mt-8 mb-4 p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg text-xs text-slate-500 text-center border border-slate-200 dark:border-slate-700">
         <p>※ 본 도구는 2026년 최신 공식 기준 및 웹 표준 알고리즘을 기반으로 제작되었으며, 산출 및 변환 결과는 참고용 모의 데이터로서 법적 효력을 갖지 않습니다.</p>
       </div>
