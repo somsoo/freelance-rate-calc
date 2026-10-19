@@ -1,792 +1,1459 @@
 <!DOCTYPE html>
-
 <html lang="ko">
 <head>
-    <!-- Performance Optimization: Resource Preconnect -->
-    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="index, follow" name="robots"/>
+  <title>프리랜서 외주 단가 역산기 | 목표 연봉 기준 적정 시급</title>
+  <meta content="목표 연봉·월 실수령액, 주당 작업시간, 4대보험·세금, 운영 경비를 반영해 외주 적정 시급과 프로젝트 견적을 역산합니다." name="description"/>
+  <meta content="프리랜서 단가 계산기, 외주 견적 계산기, 프리랜서 시급 역산, 개발자 디자이너 외주비용, 프리랜서 공임 계산, 1인 기업 견적, 적정 시급" name="keywords"/>
+  <link href="https://freelance-rate-calc.enjoy-onepage.com/" rel="canonical"/>
+  <link href="favicon.ico" rel="icon" type="image/x-icon"/>
+  <link href="https://freelance-rate-calc.enjoy-onepage.com/rss.xml" rel="alternate" title="프리랜서 외주 단가 역산기 RSS" type="application/rss+xml"/>
+  <link href="https://freelance-rate-calc.enjoy-onepage.com/sitemap.xml" rel="sitemap" title="Sitemap" type="application/xml"/>
 
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="index, follow" name="robots"/>
-<title>프리랜서 외주 단가 역산기 | 목표 연봉 기준 적정 시급</title>
-<meta content="목표 연봉·월 실수령액, 주당 작업시간, 4대보험·세금, 운영 경비를 반영해 외주 적정 시급과 프로젝트 견적을 역산합니다." name="description"/>
-<meta content="프리랜서 단가 계산기, 외주 견적 계산기, 프리랜서 시급 역산, 개발자 디자이너 외주비용, 프리랜서 공임 계산, 1인 기업 견적, 적정 시급" name="keywords"/>
-<link href="https://freelance-rate-calc.enjoy-onepage.com/" rel="canonical"/>
-<!-- 파비콘 & PWA 매니페스트 -->
-<link href="favicon.ico" rel="icon" type="image/x-icon"/>
-<link href="icon.png" rel="icon" sizes="32x32" type="image/png"/>
-<link href="apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
-<meta content="#6366F1" name="theme-color"/>
-<meta content="yes" name="apple-mobile-web-app-capable"/>
-<meta content="외주단가계산기" name="apple-mobile-web-app-title"/>
-<meta content="default" name="apple-mobile-web-app-status-bar-style"/>
-<link href='data:application/manifest+json,{"name":"프리랜서 외주 단가 역산기 | 목표 연봉 기준 적정 시급·프로젝트 견적기","short_name":"외주단가계산기","description":"희망 월 실수령액 및 목표 연봉, 주당 실 작업시간, 4대보험 및 세금, 운영 경비를 종합 반영하여 외주 프로젝트의 적정 시간당 단가와 계약 견적을 역산합니다.","start_url":"/","display":"standalone","theme_color":"#6366F1","background_color":"#0F172A","lang":"ko","icons":[{"src":"https://freelance-rate-calc.enjoy-onepage.com/icon.png","sizes":"512x512","type":"image/png"}]}' rel="manifest"/>
-<!-- 오픈그래프 (OpenGraph) 메타 태그 -->
-<meta content="website" property="og:type"/>
-<meta content="외주단가계산기" property="og:site_name"/>
-<meta content="프리랜서 외주 단가 역산기 | 목표 연봉 기준 적정 시급" property="og:title"/>
-<meta content="목표 연봉·월 실수령액, 주당 작업시간, 4대보험·세금, 운영 경비를 반영해 외주 적정 시급과 프로젝트 견적을 역산합니다." property="og:description"/>
-<meta content="https://freelance-rate-calc.enjoy-onepage.com/" property="og:url"/>
-<meta content="https://freelance-rate-calc.enjoy-onepage.com/og-image.png" property="og:image"/>
-<meta content="800" property="og:image:width"/>
-<meta content="800" property="og:image:height"/>
-<meta content="ko_KR" property="og:locale"/>
-<!-- 트위터 카드 (Twitter Card) -->
-<meta content="summary_large_image" name="twitter:card"/>
-<meta content="프리랜서 외주 단가 역산기 | 목표 연봉 기준 적정 시급" name="twitter:title"/>
-<meta content="목표 연봉·월 실수령액, 주당 작업시간, 4대보험·세금, 운영 경비를 반영해 외주 적정 시급과 프로젝트 견적을 역산합니다." name="twitter:description"/>
-<meta content="https://freelance-rate-calc.enjoy-onepage.com/og-image.png" name="twitter:image"/>
-<!-- JSON-LD 구조화 데이터 (WebApplication Schema) -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebApplication",
-      "@id": "https://freelance-rate-calc.enjoy-onepage.com/#webapp",
-      "name": "프리랜서 외주 단가 역산기",
-      "url": "https://freelance-rate-calc.enjoy-onepage.com/",
-      "applicationCategory": "UtilityApplication",
-      "operatingSystem": "All",
-      "browserRequirements": "Requires JavaScript. Requires HTML5.",
-      "description": "희망 월 실수령액 및 목표 연봉, 주당 실 작업시간, 4대보험 및 세금, 운영 경비를 종합 반영하여 외주 프로젝트의 적정 시간당 단가와 계약 견적을 역산합니다.",
-      "image": "https://freelance-rate-calc.enjoy-onepage.com/og-image.png",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "KRW"
-      }
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://freelance-rate-calc.enjoy-onepage.com/#faq",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "클라이언트가 무리한 수정을 요구할 때 견적 기준은?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "계약서에 '무상 수정 N회'를 명시하고, 기획 변경에 따른 추가 수정은 시간당 청구 단가(Hourly Rate)를 사전에 명시하여 추가 청구해야 합니다."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "시급 기준과 프로젝트 고정가(Fixed Price) 중 무엇이 유리한가요?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "업무 범위(Scope)가 명확한 작업은 고정가가 유리하며, 요구사항이 수시로 변하는 개발/디자인은 시급제(타임차지) 계약이 안전합니다."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "계산된 적정 시급보다 시장 단가가 낮을 땐 어떻게 하나요?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "단순 외주 수주를 지양하고 템플릿화, 자동화 도구를 활용해 실작업 시간을 단축하여 실질 시급을 극대화하는 전략을 취해야 합니다."
-          }
+  <!-- JSON-LD 구조화 데이터 (WebApplication & FAQPage Schema) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://freelance-rate-calc.enjoy-onepage.com/#webapp",
+        "name": "프리랜서 외주 단가 역산기",
+        "url": "https://freelance-rate-calc.enjoy-onepage.com/",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "description": "희망 월 실수령액 및 목표 연봉, 주당 실 작업시간, 4대보험 및 세금, 운영 경비를 종합 반영하여 외주 프로젝트의 적정 시간당 단가와 계약 견적을 역산합니다.",
+        "image": "https://freelance-rate-calc.enjoy-onepage.com/og-image.png",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "KRW"
         }
-      ]
-    }
-  ]
-}
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://freelance-rate-calc.enjoy-onepage.com/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "클라이언트가 무리한 수정을 요구할 때 견적 기준은?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "계약서에 '무상 수정 N회'를 명시하고, 기획 변경에 따른 추가 수정은 시간당 청구 단가(Hourly Rate)를 사전에 명시하여 추가 청구해야 합니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "시급 기준과 프로젝트 고정가(Fixed Price) 중 무엇이 유리한가요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "업무 범위(Scope)가 명확한 작업은 고정가가 유리하며, 요구사항이 수시로 변하는 개발/디자인은 시급제(타임차지) 계약이 안전합니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "계산된 적정 시급보다 시장 단가가 낮을 땐 어떻게 하나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "단순 외주 수주를 지양하고 템플릿화, 자동화 도구를 활용해 실작업 시간을 단축하여 실질 시급을 극대화하는 전략을 취해야 합니다."
+            }
+          }
+        ]
+      }
+    ]
+  }
   </script>
-<style>
-        body { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); min-height: 100vh; font-family: 'Pretendard', sans-serif; }
-        .glass-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-radius: 20px; box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); border: 1px solid rgba(255, 255, 255, 0.18); }
-        .glass-banner { background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(12px); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); }
-        .receipt { background: #fff; padding: 20px; border-radius: 10px; border: 1px dashed #ccc; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-    
-        /* U3 Accessibility: Global Keyboard Focus Ring Standard */
-        :focus-visible {
-            outline: 2px solid #3b82f6 !important;
-            outline-offset: 2px !important;
-        }
-        input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible {
-            outline: 2px solid #2563eb !important;
-            outline-offset: 1px !important;
-        }
-    
-    </style>
-<link href="https://freelance-rate-calc.enjoy-onepage.com/rss.xml" rel="alternate" title="프리랜서 외주 단가 역산기 | 목표 연봉 기준 적정 시급·프로젝트 견적기 RSS Feed" type="application/rss+xml"/>
-<link href="https://freelance-rate-calc.enjoy-onepage.com/sitemap.xml" rel="sitemap" title="Sitemap" type="application/xml"/>
-<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2228289204702106"></script><style id="layout-shield">
-  html, body {
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-  .manual-ad-box {
-    width: 100%;
-    max-width: 960px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    overflow: hidden;
-  }
-  .manual-ad-box ins {
-    max-width: 100% !important;
-    overflow: hidden !important;
-  }
-</style>
-<style id="mobile-hardening-shield">
-  /* 모바일 한글 단어 단위 줄바꿈 보존 & 버튼 텍스트 단일행 쉴드 */
-  body, h1, h2, h3, h4, p, span, label {
-    word-break: keep-all;
-    overflow-wrap: break-word;
-  }
-  button, [role="button"], a.btn {
-    white-space: nowrap;
-    word-break: keep-all;
-  }
-  @media (max-width: 640px) {
-    input, select, textarea {
-      font-size: 16px !important;
-    }
-    button, [role="button"], a.btn {
-      min-height: 42px;
-    }
-  }
-</style>
-<style>/* site styles: compiled Tailwind 3.4.17 for this page (replaces the CDN, 2026-09-30) */*,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/*! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com*/*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}:after,:before{--tw-content:""}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:Courier New,Courier,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0}fieldset,legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.-top-3{top:-.75rem}.left-1\/2{left:50%}.right-4{right:1rem}.top-3\.5{top:.875rem}.mx-auto{margin-left:auto;margin-right:auto}.my-12{margin-top:3rem;margin-bottom:3rem}.my-4{margin-top:1rem;margin-bottom:1rem}.my-6{margin-top:1.5rem;margin-bottom:1.5rem}.my-8{margin-top:2rem;margin-bottom:2rem}.mb-1{margin-bottom:.25rem}.mb-1\.5{margin-bottom:.375rem}.mb-2{margin-bottom:.5rem}.mb-3{margin-bottom:.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.mt-1{margin-top:.25rem}.mt-2{margin-top:.5rem}.mt-3{margin-top:.75rem}.mt-4{margin-top:1rem}.mt-6{margin-top:1.5rem}.mt-8{margin-top:2rem}.block{display:block}.inline-block{display:inline-block}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.h-2{height:.5rem}.h-4{height:1rem}.h-5{height:1.25rem}.h-6{height:1.5rem}.h-8{height:2rem}.w-2{width:.5rem}.w-4{width:1rem}.w-5{width:1.25rem}.w-6{width:1.5rem}.w-8{width:2rem}.w-full{width:100%}.max-w-3xl{max-width:48rem}.max-w-4xl{max-width:56rem}.max-w-6xl{max-width:72rem}.flex-shrink-0,.shrink-0{flex-shrink:0}.-translate-x-1\/2{--tw-translate-x:-50%}.-translate-x-1\/2,.transform{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.cursor-pointer{cursor:pointer}.list-none{list-style-type:none}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.flex-col{flex-direction:column}.items-start{align-items:flex-start}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-1\.5{gap:.375rem}.gap-2{gap:.5rem}.gap-2\.5{gap:.625rem}.gap-3{gap:.75rem}.gap-3\.5{gap:.875rem}.gap-4{gap:1rem}.gap-8{gap:2rem}.space-x-1>:not([hidden])~:not([hidden]){--tw-space-x-reverse:0;margin-right:calc(.25rem*var(--tw-space-x-reverse));margin-left:calc(.25rem*(1 - var(--tw-space-x-reverse)))}.space-y-1>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.25rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.25rem*var(--tw-space-y-reverse))}.space-y-2>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.5rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.5rem*var(--tw-space-y-reverse))}.space-y-3>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.75rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.75rem*var(--tw-space-y-reverse))}.space-y-4>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem*var(--tw-space-y-reverse))}.space-y-6>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.5rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.5rem*var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.whitespace-nowrap{white-space:nowrap}.rounded-2xl{border-radius:1rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:.5rem}.rounded-xl{border-radius:.75rem}.border{border-width:1px}.border-2{border-width:2px}.border-b{border-bottom-width:1px}.border-b-2{border-bottom-width:2px}.border-t{border-top-width:1px}.border-t-2{border-top-width:2px}.border-t-4{border-top-width:4px}.border-dashed{border-style:dashed}.border-double{border-style:double}.border-blue-100{--tw-border-opacity:1;border-color:rgb(219 234 254/var(--tw-border-opacity,1))}.border-blue-200\/80{border-color:rgba(191,219,254,.8)}.border-emerald-100{--tw-border-opacity:1;border-color:rgb(209 250 229/var(--tw-border-opacity,1))}.border-gray-200{--tw-border-opacity:1;border-color:rgb(229 231 235/var(--tw-border-opacity,1))}.border-indigo-100{--tw-border-opacity:1;border-color:rgb(224 231 255/var(--tw-border-opacity,1))}.border-slate-100{--tw-border-opacity:1;border-color:rgb(241 245 249/var(--tw-border-opacity,1))}.border-slate-200{--tw-border-opacity:1;border-color:rgb(226 232 240/var(--tw-border-opacity,1))}.border-slate-200\/80{border-color:rgba(226,232,240,.8)}.border-slate-300{--tw-border-opacity:1;border-color:rgb(203 213 225/var(--tw-border-opacity,1))}.border-white\/20{border-color:hsla(0,0%,100%,.2)}.bg-\[\#FCFBF7\]{--tw-bg-opacity:1;background-color:rgb(252 251 247/var(--tw-bg-opacity,1))}.bg-blue-100{--tw-bg-opacity:1;background-color:rgb(219 234 254/var(--tw-bg-opacity,1))}.bg-blue-50\/50{background-color:rgba(239,246,255,.5)}.bg-blue-500{--tw-bg-opacity:1;background-color:rgb(59 130 246/var(--tw-bg-opacity,1))}.bg-blue-600{--tw-bg-opacity:1;background-color:rgb(37 99 235/var(--tw-bg-opacity,1))}.bg-emerald-50\/50{background-color:rgba(236,253,245,.5)}.bg-gray-50{--tw-bg-opacity:1;background-color:rgb(249 250 251/var(--tw-bg-opacity,1))}.bg-gray-800{--tw-bg-opacity:1;background-color:rgb(31 41 55/var(--tw-bg-opacity,1))}.bg-indigo-100{--tw-bg-opacity:1;background-color:rgb(224 231 255/var(--tw-bg-opacity,1))}.bg-indigo-50\/50{background-color:rgba(238,242,255,.5)}.bg-indigo-500{--tw-bg-opacity:1;background-color:rgb(99 102 241/var(--tw-bg-opacity,1))}.bg-indigo-600{--tw-bg-opacity:1;background-color:rgb(79 70 229/var(--tw-bg-opacity,1))}.bg-slate-100\/60{background-color:rgba(241,245,249,.6)}.bg-slate-50{--tw-bg-opacity:1;background-color:rgb(248 250 252/var(--tw-bg-opacity,1))}.bg-slate-800{--tw-bg-opacity:1;background-color:rgb(30 41 59/var(--tw-bg-opacity,1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1))}.bg-gradient-to-r{background-image:linear-gradient(to right,var(--tw-gradient-stops))}.from-blue-50{--tw-gradient-from:#eff6ff var(--tw-gradient-from-position);--tw-gradient-to:rgba(239,246,255,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.to-indigo-50{--tw-gradient-to:#eef2ff var(--tw-gradient-to-position)}.p-3{padding:.75rem}.p-4{padding:1rem}.p-5{padding:1.25rem}.p-6{padding:1.5rem}.px-3{padding-left:.75rem;padding-right:.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-3{padding-top:.75rem;padding-bottom:.75rem}.py-4{padding-top:1rem}.pb-4,.py-4{padding-bottom:1rem}.pb-5{padding-bottom:1.25rem}.pb-6{padding-bottom:1.5rem}.pl-4{padding-left:1rem}.pr-12{padding-right:3rem}.pt-2{padding-top:.5rem}.pt-3{padding-top:.75rem}.pt-4{padding-top:1rem}.pt-6{padding-top:1.5rem}.text-left{text-align:left}.text-center{text-align:center}.font-mono{font-family:Courier New,Courier,monospace}.text-2xl{font-size:1.5rem;line-height:2rem}.text-\[10px\]{font-size:10px}.text-\[11px\]{font-size:11px}.text-\[9px\]{font-size:9px}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:.75rem;line-height:1rem}.font-black{font-weight:900}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-relaxed{line-height:1.625}.leading-snug{line-height:1.375}.tracking-tight{letter-spacing:-.025em}.tracking-wider{letter-spacing:.05em}.tracking-widest{letter-spacing:.1em}.text-amber-400{--tw-text-opacity:1;color:rgb(251 191 36/var(--tw-text-opacity,1))}.text-blue-600{--tw-text-opacity:1;color:rgb(37 99 235/var(--tw-text-opacity,1))}.text-blue-700{--tw-text-opacity:1;color:rgb(29 78 216/var(--tw-text-opacity,1))}.text-emerald-600{--tw-text-opacity:1;color:rgb(5 150 105/var(--tw-text-opacity,1))}.text-emerald-600\/80{color:rgba(5,150,105,.8)}.text-emerald-700{--tw-text-opacity:1;color:rgb(4 120 87/var(--tw-text-opacity,1))}.text-gray-600{--tw-text-opacity:1;color:rgb(75 85 99/var(--tw-text-opacity,1))}.text-gray-800{--tw-text-opacity:1;color:rgb(31 41 55/var(--tw-text-opacity,1))}.text-gray-900{--tw-text-opacity:1;color:rgb(17 24 39/var(--tw-text-opacity,1))}.text-indigo-600{--tw-text-opacity:1;color:rgb(79 70 229/var(--tw-text-opacity,1))}.text-red-500{--tw-text-opacity:1;color:rgb(239 68 68/var(--tw-text-opacity,1))}.text-slate-300{--tw-text-opacity:1;color:rgb(203 213 225/var(--tw-text-opacity,1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184/var(--tw-text-opacity,1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139/var(--tw-text-opacity,1))}.text-slate-600{--tw-text-opacity:1;color:rgb(71 85 105/var(--tw-text-opacity,1))}.text-slate-700{--tw-text-opacity:1;color:rgb(51 65 85/var(--tw-text-opacity,1))}.text-slate-800{--tw-text-opacity:1;color:rgb(30 41 59/var(--tw-text-opacity,1))}.text-slate-900{--tw-text-opacity:1;color:rgb(15 23 42/var(--tw-text-opacity,1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity,1))}.text-white\/70{color:hsla(0,0%,100%,.7)}.shadow-inner{--tw-shadow:inset 0 2px 4px 0 rgba(0,0,0,.05);--tw-shadow-colored:inset 0 2px 4px 0 var(--tw-shadow-color)}.shadow-inner,.shadow-lg{box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.shadow-lg{--tw-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color),0 4px 6px -4px var(--tw-shadow-color)}.shadow-md{--tw-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color),0 2px 4px -2px var(--tw-shadow-color)}.shadow-md,.shadow-sm{box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.shadow-sm{--tw-shadow:0 1px 2px 0 rgba(0,0,0,.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color)}.shadow-indigo-100{--tw-shadow-color:#e0e7ff;--tw-shadow:var(--tw-shadow-colored)}.outline{outline-style:solid}.blur{--tw-blur:blur(8px);filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.backdrop-filter{-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.duration-200{transition-duration:.2s}.hover\:border-blue-500:hover{--tw-border-opacity:1;border-color:rgb(59 130 246/var(--tw-border-opacity,1))}.hover\:bg-blue-700:hover{--tw-bg-opacity:1;background-color:rgb(29 78 216/var(--tw-bg-opacity,1))}.hover\:bg-gray-700:hover{--tw-bg-opacity:1;background-color:rgb(55 65 81/var(--tw-bg-opacity,1))}.hover\:bg-indigo-700:hover{--tw-bg-opacity:1;background-color:rgb(67 56 202/var(--tw-bg-opacity,1))}.hover\:bg-slate-900:hover{--tw-bg-opacity:1;background-color:rgb(15 23 42/var(--tw-bg-opacity,1))}.hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity,1))}.hover\:shadow:hover{--tw-shadow:0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px -1px rgba(0,0,0,.1);--tw-shadow-colored:0 1px 3px 0 var(--tw-shadow-color),0 1px 2px -1px var(--tw-shadow-color)}.hover\:shadow-md:hover,.hover\:shadow:hover{box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.hover\:shadow-md:hover{--tw-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color),0 2px 4px -2px var(--tw-shadow-color)}.hover\:shadow-indigo-200:hover{--tw-shadow-color:#c7d2fe;--tw-shadow:var(--tw-shadow-colored)}.focus\:border-indigo-500:focus{--tw-border-opacity:1;border-color:rgb(99 102 241/var(--tw-border-opacity,1))}.focus\:ring-2:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow,0 0 #0000)}.focus\:ring-indigo-500:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(99 102 241/var(--tw-ring-opacity,1))}.active\:scale-\[0\.98\]:active{--tw-scale-x:0.98;--tw-scale-y:0.98}.active\:scale-\[0\.98\]:active,.group[open] .group-open\:rotate-180{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group[open] .group-open\:rotate-180{--tw-rotate:180deg}.group:hover .group-hover\:translate-x-1{--tw-translate-x:0.25rem;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:text-blue-600{--tw-text-opacity:1;color:rgb(37 99 235/var(--tw-text-opacity,1))}@media (min-width:640px){.sm\:w-auto{width:auto}.sm\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.sm\:flex-row{flex-direction:row}.sm\:p-10{padding:2.5rem}.sm\:p-6{padding:1.5rem}.sm\:p-8{padding:2rem}.sm\:text-2xl{font-size:1.5rem;line-height:2rem}.sm\:text-3xl{font-size:1.875rem;line-height:2.25rem}.sm\:text-base{font-size:1rem;line-height:1.5rem}.sm\:text-lg{font-size:1.125rem;line-height:1.75rem}.sm\:text-sm{font-size:.875rem;line-height:1.25rem}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.md\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}}@media (min-width:1024px){.lg\:sticky{position:sticky}.lg\:top-8{top:2rem}.lg\:col-span-6{grid-column:span 6/span 6}.lg\:grid-cols-12{grid-template-columns:repeat(12,minmax(0,1fr))}}@media (prefers-color-scheme:dark){.dark\:border-blue-900\/50{border-color:rgba(30,58,138,.5)}.dark\:border-slate-700{--tw-border-opacity:1;border-color:rgb(51 65 85/var(--tw-border-opacity,1))}.dark\:border-slate-700\/60{border-color:rgba(51,65,85,.6)}.dark\:border-slate-700\/80{border-color:rgba(51,65,85,.8)}.dark\:border-slate-800{--tw-border-opacity:1;border-color:rgb(30 41 59/var(--tw-border-opacity,1))}.dark\:bg-blue-900\/60{background-color:rgba(30,58,138,.6)}.dark\:bg-blue-950\/30{background-color:rgba(23,37,84,.3)}.dark\:bg-slate-800{--tw-bg-opacity:1;background-color:rgb(30 41 59/var(--tw-bg-opacity,1))}.dark\:bg-slate-800\/50{background-color:rgba(30,41,59,.5)}.dark\:bg-slate-900{--tw-bg-opacity:1;background-color:rgb(15 23 42/var(--tw-bg-opacity,1))}.dark\:bg-slate-900\/60{background-color:rgba(15,23,42,.6)}.dark\:from-slate-800{--tw-gradient-from:#1e293b var(--tw-gradient-from-position);--tw-gradient-to:rgba(30,41,59,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.dark\:to-slate-800\/80{--tw-gradient-to:rgba(30,41,59,.8) var(--tw-gradient-to-position)}.dark\:text-blue-300{--tw-text-opacity:1;color:rgb(147 197 253/var(--tw-text-opacity,1))}.dark\:text-blue-400{--tw-text-opacity:1;color:rgb(96 165 250/var(--tw-text-opacity,1))}.dark\:text-emerald-400{--tw-text-opacity:1;color:rgb(52 211 153/var(--tw-text-opacity,1))}.dark\:text-slate-100{--tw-text-opacity:1;color:rgb(241 245 249/var(--tw-text-opacity,1))}.dark\:text-slate-300{--tw-text-opacity:1;color:rgb(203 213 225/var(--tw-text-opacity,1))}.dark\:text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184/var(--tw-text-opacity,1))}.dark\:text-white{--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity,1))}}</style>
-<script id="math-guard">
-// Global Math & DOM Output Guard: prevents NaN / Infinity leaks to UI
-(function() {
-  const origToLocaleString = Number.prototype.toLocaleString;
-  Number.prototype.toLocaleString = function(locales, options) {
-    if (!Number.isFinite(this.valueOf())) return '0';
-    return origToLocaleString.call(this, locales, options);
-  };
-  const origToFixed = Number.prototype.toFixed;
-  Number.prototype.toFixed = function(digits) {
-    if (!Number.isFinite(this.valueOf())) return '0';
-    return origToFixed.call(this, digits);
-  };
-})();
-</script>
-<style id="ad-cls-shield">
-  .ad-bottom { min-height: 280px !important; }
-  .ad-bottom ins { min-height: 280px !important; }
-</style>
 
-<style id="custom-ux-polish">
-  .preset-btn { transition: all 0.2s ease; cursor: pointer; }
-  .preset-btn:hover { transform: translateY(-2px); border-color: #6366f1 !important; box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.15); }
-  .preset-btn:active { transform: scale(0.98); }
-  #toastMsg {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%) translateY(100px);
-    background: rgba(15, 23, 42, 0.95);
-    color: #fff;
-    padding: 12px 24px;
-    border-radius: 9999px;
-    font-size: 14px;
-    font-weight: 600;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(8px);
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
-    opacity: 0;
-    pointer-events: none;
-    z-index: 9999;
-  }
-  #toastMsg.show { transform: translateX(-50%) translateY(0); opacity: 1; }
-  .manual-ad-box { width: 100%; max-width: 960px; }
-  .ad-receipt-banner ins { min-height: 250px; }
-</style>
+  <!-- Google AdSense -->
+  <script async crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2228289204702106"></script>
+
+  <style>
+    /* Base resets & typography */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+      color: #1e293b;
+      line-height: 1.5;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    /* Layout container */
+    .app-container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    
+    /* Glassmorphism Card */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 24px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      padding: 2rem 2.5rem;
+      margin-bottom: 2rem;
+    }
+    @media (max-width: 640px) {
+      .glass-card { padding: 1.5rem 1rem; border-radius: 18px; }
+      body { padding: 0.5rem; }
+    }
+
+    /* Ad container */
+    .manual-ad-box {
+      width: 100%;
+      max-width: 960px;
+      margin: 12px auto 20px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* Grid layout */
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    @media (max-width: 960px) {
+      .calc-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Header styling */
+    .header-section {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .header-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: #e0e7ff;
+      color: #4f46e5;
+      margin-bottom: 0.75rem;
+    }
+    .header-title {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.025em;
+    }
+    .header-subtitle {
+      font-size: 0.95rem;
+      color: #64748b;
+      margin-top: 0.35rem;
+      word-break: keep-all;
+    }
+
+    /* Preset bar */
+    .preset-container {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.75rem;
+    }
+    .preset-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      font-size: 0.825rem;
+    }
+    .preset-title { font-weight: 700; color: #334155; }
+    .preset-hint { color: #94a3b8; font-size: 0.75rem; }
+    .preset-chips {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.6rem;
+    }
+    @media (max-width: 768px) {
+      .preset-chips { grid-template-columns: repeat(2, 1fr); }
+    }
+    .preset-btn {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 0.65rem 0.75rem;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.85rem;
+      color: #1e293b;
+    }
+    .preset-btn:hover {
+      border-color: #6366f1;
+      background: #f5f3ff;
+      transform: translateY(-1px);
+    }
+    .preset-btn.active {
+      border-color: #4f46e5;
+      background: #eef2ff;
+      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+    }
+    .preset-role { font-weight: 700; display: block; margin-bottom: 2px; }
+    .preset-desc { font-size: 0.725rem; color: #64748b; display: block; }
+
+    /* Form Section */
+    .form-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+    .form-section-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .section-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4f46e5;
+    }
+    .input-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 0.85rem;
+    }
+    @media (max-width: 500px) {
+      .input-row { grid-template-columns: 1fr; }
+    }
+    .input-group { position: relative; }
+    .input-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #475569;
+      margin-bottom: 0.35rem;
+      letter-spacing: -0.01em;
+    }
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .input-field {
+      width: 100%;
+      padding: 0.75rem 2.5rem 0.75rem 0.85rem;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #0f172a;
+      background: #ffffff;
+      transition: all 0.2s;
+    }
+    .input-field:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    }
+    .input-unit {
+      position: absolute;
+      right: 0.85rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #94a3b8;
+      pointer-events: none;
+    }
+    .input-note {
+      font-size: 0.725rem;
+      color: #94a3b8;
+      margin-top: 0.25rem;
+      line-height: 1.35;
+      word-break: keep-all;
+    }
+
+    /* Submit Button */
+    .btn-submit {
+      width: 100%;
+      padding: 1rem;
+      background: #4f46e5;
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .btn-submit:hover {
+      background: #4338ca;
+      box-shadow: 0 6px 18px rgba(79, 70, 229, 0.4);
+      transform: translateY(-1px);
+    }
+    .btn-submit:active { transform: translateY(0); }
+
+    /* Receipt Styling */
+    .receipt-container {
+      position: sticky;
+      top: 1rem;
+    }
+    .receipt-paper {
+      background: #fdfcf7;
+      border: 2px dashed #cbd5e1;
+      border-radius: 20px;
+      padding: 2rem 1.75rem 1.5rem;
+      position: relative;
+      font-family: 'SF Mono', Monaco, Consolas, 'Liberation Mono', monospace;
+      color: #1e293b;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02), 0 8px 24px rgba(0, 0, 0, 0.04);
+    }
+    .punch-hole {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    .receipt-header {
+      text-align: center;
+      border-bottom: 2px dashed #e2e8f0;
+      padding-bottom: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    .receipt-title {
+      font-size: 1.15rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      color: #0f172a;
+    }
+    .receipt-date {
+      font-size: 0.725rem;
+      color: #94a3b8;
+      margin-top: 0.35rem;
+    }
+    .receipt-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #059669;
+      background: #d1fae5;
+      padding: 2px 8px;
+      border-radius: 6px;
+      margin-top: 0.35rem;
+    }
+
+    /* Receipt breakdown list */
+    .receipt-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      padding: 0.35rem 0;
+      color: #475569;
+    }
+    .receipt-row.heading {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #94a3b8;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .receipt-val {
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .receipt-val.expense { color: #dc2626; }
+    .receipt-divider {
+      border-top: 2px dashed #e2e8f0;
+      margin: 0.85rem 0;
+    }
+
+    /* Min revenue callout */
+    .receipt-highlight {
+      background: #eef2ff;
+      border: 1px solid #c7d2fe;
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0.85rem 0;
+    }
+    .highlight-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #3730a3;
+    }
+    .highlight-value {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: #4338ca;
+    }
+
+    /* Result rate cards */
+    .rate-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.65rem;
+      margin-top: 0.85rem;
+    }
+    .rate-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 0.75rem;
+      text-align: center;
+    }
+    .rate-card-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #6366f1;
+      margin-bottom: 0.25rem;
+    }
+    .rate-card-val {
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: #0f172a;
+    }
+    .man-month-card {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      border-radius: 12px;
+      padding: 0.85rem;
+      text-align: center;
+      margin-top: 0.65rem;
+    }
+    .man-month-title {
+      font-size: 0.725rem;
+      font-weight: 700;
+      color: #065f46;
+      margin-bottom: 0.25rem;
+    }
+    .man-month-val {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: #059669;
+    }
+    .man-month-note {
+      font-size: 0.7rem;
+      color: #047857;
+      margin-top: 0.2rem;
+    }
+
+    /* Negotiation buffer card */
+    .negotiation-box {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 12px;
+      padding: 0.75rem 0.9rem;
+      margin-top: 0.75rem;
+      font-size: 0.75rem;
+      line-height: 1.4;
+      color: #92400e;
+    }
+    .negotiation-header {
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-bottom: 0.35rem;
+      color: #78350f;
+    }
+    .negotiation-prices {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.35rem;
+      font-weight: 700;
+    }
+
+    /* Receipt action toolbar */
+    .receipt-toolbar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .toolbar-btn {
+      padding: 0.7rem 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+    .toolbar-btn.primary {
+      background: #4f46e5;
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(79, 70, 229, 0.25);
+    }
+    .toolbar-btn.primary:hover { background: #4338ca; }
+    .toolbar-btn.secondary {
+      background: #1e293b;
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(30, 41, 59, 0.2);
+    }
+    .toolbar-btn.secondary:hover { background: #0f172a; }
+    .toolbar-btn.outline {
+      background: #ffffff;
+      color: #334155;
+      border-color: #cbd5e1;
+    }
+    .toolbar-btn.outline:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+
+    /* Guide & FAQ section (Harmonious light design) */
+    .guide-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+    .guide-header {
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .guide-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .guide-subtitle {
+      font-size: 0.85rem;
+      color: #64748b;
+      margin-top: 0.35rem;
+      word-break: keep-all;
+    }
+    .guide-pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    @media (max-width: 768px) {
+      .guide-pillars { grid-template-columns: 1fr; }
+    }
+    .pillar-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 1.15rem;
+    }
+    .pillar-box-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .pillar-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #3b82f6;
+    }
+    .pillar-box-desc {
+      font-size: 0.8rem;
+      color: #64748b;
+      line-height: 1.5;
+      word-break: keep-all;
+    }
+
+    /* FAQ Details */
+    .faq-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .faq-item {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+    .faq-item summary {
+      padding: 1rem 1.25rem;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: #1e293b;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      list-style: none;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after {
+      content: '▼';
+      font-size: 0.7rem;
+      color: #6366f1;
+      transition: transform 0.2s;
+    }
+    .faq-item[open] summary::after { transform: rotate(180deg); }
+    .faq-content {
+      padding: 0 1.25rem 1rem;
+      font-size: 0.825rem;
+      color: #475569;
+      line-height: 1.55;
+      word-break: keep-all;
+    }
+
+    /* Related Tools */
+    .related-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .related-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.85rem;
+    }
+    @media (max-width: 640px) {
+      .related-grid { grid-template-columns: 1fr; }
+    }
+    .tool-link {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .tool-link:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+      transform: translateY(-1px);
+    }
+    .tool-badge { font-size: 0.7rem; font-weight: 700; color: #2563eb; margin-bottom: 2px; }
+    .tool-name { font-size: 0.85rem; font-weight: 800; color: #1e293b; }
+    .tool-arrow { color: #94a3b8; font-weight: 700; font-size: 1rem; }
+
+    /* Topic cluster reverse banner */
+    .cluster-banner {
+      background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 100%);
+      border: 1px solid #bfdbfe;
+      border-radius: 16px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    @media (max-width: 640px) {
+      .cluster-banner { flex-direction: column; align-items: flex-start; }
+    }
+    .cluster-title { font-size: 0.725rem; font-weight: 700; color: #2563eb; text-transform: uppercase; }
+    .cluster-desc { font-size: 0.9rem; font-weight: 800; color: #1e293b; margin-top: 2px; }
+    .cluster-btn {
+      background: #2563eb;
+      color: #ffffff;
+      padding: 0.6rem 1rem;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 700;
+      white-space: nowrap;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .cluster-btn:hover { background: #1d4ed8; }
+
+    /* Footer & Disclaimer */
+    .disclaimer-box {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #64748b;
+      margin-bottom: 1.5rem;
+    }
+    .footer-section {
+      text-align: center;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.85);
+      padding: 1.5rem 0 3rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
+      width: 100%;
+      max-width: 600px;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .footer-link {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+    }
+    .footer-link:hover { text-decoration: underline; }
+
+    /* Toast notification */
+    #globalToast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #0f172a;
+      color: #ffffff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      z-index: 99999;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #globalToast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
 </head>
-<body class="flex flex-col items-center justify-center p-4">
-<!-- Toast Notification -->
-<div id="toastMsg">알림 메시지</div>
+<body>
 
-<!-- 상단 슬림 띠배너 -->
-<div class="manual-ad-box ad-top-banner" style="width: 100%; max-width: 960px; margin: 8px auto 16px; text-align: center;">
-  <ins class="adsbygoogle"
-       data-ad-client="ca-pub-2228289204702106"
-       data-ad-format="horizontal"
-       data-ad-slot="3824727725"
-       data-full-width-responsive="true"
-       style="display:inline-block;width:100%;height:60px;"></ins>
-  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
+  <!-- 상단 슬림 띠배너 -->
+  <div class="manual-ad-box">
+    <ins class="adsbygoogle"
+         data-ad-client="ca-pub-2228289204702106"
+         data-ad-format="horizontal"
+         data-ad-slot="3824727725"
+         data-full-width-responsive="true"
+         style="display:inline-block;width:100%;height:60px;"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
 
-<div class="glass-card w-full max-w-6xl overflow-hidden mb-6">
-  <div class="w-full mx-auto p-6 sm:p-10">
-    <!-- Header -->
-    <div class="text-center mb-8">
-      <div class="inline-flex items-center justify-center p-3 bg-indigo-100 text-indigo-600 rounded-2xl mb-4">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-        </svg>
+  <div class="app-container">
+    <!-- Main Calculator App Card -->
+    <main class="glass-card">
+      
+      <!-- Header -->
+      <div class="header-section">
+        <div class="header-icon">
+          <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+          </svg>
+        </div>
+        <h1 class="header-title">프리랜서 외주 단가 역산기</h1>
+        <p class="header-subtitle">목표 월 실수령액을 기반으로 세금, 경비, 비가동 시간을 고려한 현실적인 최소 단가를 계산합니다.</p>
       </div>
-      <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-800 tracking-tight">프리랜서 외주 단가 역산기</h1>
-      <p class="text-slate-500 mt-2 text-sm sm:text-base">목표 월 실수령액을 기반으로 세금, 경비, 비가동 시간을 고려한 현실적인 최소 단가를 계산합니다.</p>
-    </div>
 
-    <!-- Quick Presets -->
-    <div class="mb-8 p-4 bg-slate-50 border border-slate-200/80 rounded-2xl">
-      <div class="flex items-center justify-between mb-3">
-        <span class="text-xs font-black text-indigo-700 uppercase tracking-wider flex items-center gap-1.5">
-          <span>⚡</span> 직무별 빠른 단가 프리셋
-        </span>
-        <span class="text-[11px] text-slate-500">클릭 시 권장 수치가 즉시 반영됩니다</span>
-      </div>
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-        <button type="button" class="preset-btn p-3 bg-white border border-slate-200 rounded-xl text-left shadow-sm" onclick="applyPreset('designer')">
-          <div class="text-xs font-black text-slate-800">🎨 UI/UX 디자이너</div>
-          <div class="text-[11px] text-slate-500 mt-1">실수령 450만 · 경비 40만</div>
-        </button>
-        <button type="button" class="preset-btn p-3 bg-white border border-slate-200 rounded-xl text-left shadow-sm" onclick="applyPreset('developer')">
-          <div class="text-xs font-black text-slate-800">💻 웹/앱 개발자</div>
-          <div class="text-[11px] text-slate-500 mt-1">실수령 650만 · 경비 60만</div>
-        </button>
-        <button type="button" class="preset-btn p-3 bg-white border border-slate-200 rounded-xl text-left shadow-sm" onclick="applyPreset('video')">
-          <div class="text-xs font-black text-slate-800">🎬 영상/모션그래픽</div>
-          <div class="text-[11px] text-slate-500 mt-1">실수령 400만 · 경비 35만</div>
-        </button>
-        <button type="button" class="preset-btn p-3 bg-white border border-slate-200 rounded-xl text-left shadow-sm" onclick="applyPreset('marketing')">
-          <div class="text-xs font-black text-slate-800">✍️ 기획/마케터</div>
-          <div class="text-[11px] text-slate-500 mt-1">실수령 420만 · 경비 30만</div>
-        </button>
-      </div>
-    </div>
-
-    <!-- Main Grid: Form + Receipt Area -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-      <!-- Left Column: Form -->
-      <div class="lg:col-span-6 w-full">
-        <form class="space-y-6" id="calcForm" onsubmit="return false;">
-          <!-- Section 1: Income & Expenses -->
-          <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
-            <h3 class="text-md font-bold text-slate-700 flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-indigo-500"></span> 목표 수입 및 지출
-            </h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">목표 월 실수령액 (만원)</label>
-                <div class="relative">
-                  <input class="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium text-slate-800" id="targetNet" min="1" placeholder="예: 500" required="" type="number" value="500" aria-label="목표 월 실수령액" inputmode="numeric">
-                  <span class="absolute right-4 top-3.5 text-slate-400 font-medium text-sm">만원</span>
-                </div>
-              </div>
-              <div>
-                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">월 고정 경비 (만원)</label>
-                <div class="relative">
-                  <input class="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium text-slate-800" id="expenses" min="0" placeholder="임대료, 프로그램 구독료 등" required="" type="number" value="50" aria-label="월 고정 경비" inputmode="numeric">
-                  <span class="absolute right-4 top-3.5 text-slate-400 font-medium text-sm">만원</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Section 2: Time & Overhead -->
-          <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
-            <h3 class="text-md font-bold text-slate-700 flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-indigo-500"></span> 근무 환경 설정
-            </h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">월 근무 일수 (일)</label>
-                <div class="relative">
-                  <input class="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium text-slate-800" id="workingDays" max="31" min="1" placeholder="예: 20" required="" type="number" value="20" aria-label="월 근무 일수" inputmode="numeric">
-                  <span class="absolute right-4 top-3.5 text-slate-400 font-medium text-sm">일</span>
-                </div>
-              </div>
-              <div>
-                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">하루 실제 집중 근무 시간 (시간)</label>
-                <div class="relative">
-                  <input class="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium text-slate-800" id="workingHours" max="24" min="1" placeholder="예: 6" required="" type="number" value="6" aria-label="하루 실제 집중 근무 시간" inputmode="numeric">
-                  <span class="absolute right-4 top-3.5 text-slate-400 font-medium text-sm">시간</span>
-                </div>
-              </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-              <div>
-                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">비가동 시간 비율 (%)</label>
-                <div class="relative">
-                  <input class="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium text-slate-800" id="overheadRate" max="90" min="0" placeholder="영업, 미팅, 학습 시간 비율" required="" type="number" value="30" aria-label="비가동 시간 비율" inputmode="numeric">
-                  <span class="absolute right-4 top-3.5 text-slate-400 font-medium text-sm">%</span>
-                </div>
-                <p class="text-[11px] text-slate-400 mt-1">※ 전체 업무 중 영업, 기획, 수정 등 청구 불가 시간 (평균 25~35%)</p>
-              </div>
-              <div>
-                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">세금 + 건강/연금 예상 요율 (%)</label>
-                <div class="relative">
-                  <input class="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium text-slate-800" id="taxRate" max="50" min="0" placeholder="예: 프리랜서 3.3% + 건강보험 등" required="" type="number" value="15" aria-label="세금 및 건강연금 요율" inputmode="numeric">
-                  <span class="absolute right-4 top-3.5 text-slate-400 font-medium text-sm">%</span>
-                </div>
-                <p class="text-[11px] text-slate-400 mt-1">※ 종합소득세 및 지역 건보/국민연금 대비 (평균 15~20% 권장)</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Action Button -->
-          <button class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl shadow-lg shadow-indigo-100 hover:shadow-indigo-200 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2 whitespace-nowrap" onclick="calculateRates()" type="button">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-            </svg>
-            <span>최소 단가 영수증 즉시 재계산</span>
+      <!-- Quick Profession Presets -->
+      <div class="preset-container">
+        <div class="preset-header">
+          <span class="preset-title">⚡ 직무별 빠른 단가 프리셋</span>
+          <span class="preset-hint">클릭 시 권장 수치가 즉시 입력·반영됩니다</span>
+        </div>
+        <div class="preset-chips">
+          <button type="button" class="preset-btn" onclick="applyPreset(450, 40, 20, 6, 30, 15, this)">
+            <span class="preset-role">🎨 UI/UX 디자이너</span>
+            <span class="preset-desc">실수령 450만 · 경비 40만</span>
           </button>
-        </form>
-      </div>
-
-      <!-- Right Column: Sticky Receipt Output & Immediate AdSlot -->
-      <div class="lg:col-span-6 lg:sticky lg:top-8 w-full">
-        <!-- Action Toolbar Above Receipt -->
-        <div class="flex flex-wrap gap-2 justify-center mb-3">
-          <button type="button" class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-sm transition active:scale-95" onclick="downloadReceiptImage()">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-            <span>영수증 이미지 다운로드 (PNG)</span>
+          <button type="button" class="preset-btn" onclick="applyPreset(650, 60, 20, 6, 30, 15, this)">
+            <span class="preset-role">💻 웹/앱 개발자</span>
+            <span class="preset-desc">실수령 650만 · 경비 60만</span>
           </button>
-          <button type="button" class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold rounded-xl shadow-sm transition active:scale-95" onclick="copyResultSummary()">
-            <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
-            <span>요약 텍스트 복사</span>
+          <button type="button" class="preset-btn" onclick="applyPreset(400, 35, 20, 6, 35, 15, this)">
+            <span class="preset-role">🎬 영상/모션그래픽</span>
+            <span class="preset-desc">실수령 400만 · 경비 35만</span>
           </button>
-          <button type="button" class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs font-bold rounded-xl shadow-sm transition active:scale-95" onclick="shareRateCard()">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
-            <span>공유하기</span>
+          <button type="button" class="preset-btn" onclick="applyPreset(420, 30, 20, 6, 30, 15, this)">
+            <span class="preset-role">✍️ 기획/마케터</span>
+            <span class="preset-desc">실수령 420만 · 경비 30만</span>
           </button>
         </div>
+      </div>
 
-        <!-- The Receipt Element -->
-        <div class="receipt" id="receiptArea">
-          <div class="bg-[#FCFBF7] text-slate-800 p-6 sm:p-8 rounded-2xl border-2 border-dashed border-slate-300 relative shadow-inner font-mono text-sm leading-relaxed">
+      <!-- Main Form & Receipt Grid -->
+      <div class="calc-grid">
+        
+        <!-- Left Column: Inputs Form -->
+        <div class="form-col">
+          <form id="calcForm" onsubmit="return false;">
+            
+            <!-- Section 1 -->
+            <div class="form-card">
+              <h2 class="form-section-title">
+                <span class="section-dot"></span> 목표 수입 및 지출
+              </h2>
+              <div class="input-row">
+                <div class="input-group">
+                  <label class="input-label" for="targetNet">목표 월 실수령액</label>
+                  <div class="input-wrapper">
+                    <input class="input-field" id="targetNet" type="number" min="1" step="10" value="500" inputmode="numeric" placeholder="예: 500"/>
+                    <span class="input-unit">만원</span>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <label class="input-label" for="expenses">월 고정 경비</label>
+                  <div class="input-wrapper">
+                    <input class="input-field" id="expenses" type="number" min="0" step="5" value="50" inputmode="numeric" placeholder="예: 50"/>
+                    <span class="input-unit">만원</span>
+                  </div>
+                </div>
+              </div>
+              <p class="input-note">※ 작업실 임대료, Adobe·Figma 구독료, 통신비 등 외주 유지비용</p>
+            </div>
+
+            <!-- Section 2 -->
+            <div class="form-card">
+              <h2 class="form-section-title">
+                <span class="section-dot"></span> 근무 환경 설정
+              </h2>
+              <div class="input-row">
+                <div class="input-group">
+                  <label class="input-label" for="workingDays">월 근무 일수</label>
+                  <div class="input-wrapper">
+                    <input class="input-field" id="workingDays" type="number" min="1" max="31" value="20" inputmode="numeric" placeholder="예: 20"/>
+                    <span class="input-unit">일</span>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <label class="input-label" for="workingHours">하루 실제 집중 근무</label>
+                  <div class="input-wrapper">
+                    <input class="input-field" id="workingHours" type="number" min="1" max="24" value="6" inputmode="numeric" placeholder="예: 6"/>
+                    <span class="input-unit">시간</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="input-row" style="margin-top: 0.85rem;">
+                <div class="input-group">
+                  <label class="input-label" for="overheadRate">비가동 시간 비율 (%)</label>
+                  <div class="input-wrapper">
+                    <input class="input-field" id="overheadRate" type="number" min="0" max="90" value="30" inputmode="numeric" placeholder="예: 30"/>
+                    <span class="input-unit">%</span>
+                  </div>
+                  <p class="input-note">※ 견적, 영업, 미팅, 수정 등 비용 청구 불가 시간 (평균 25~35%)</p>
+                </div>
+                <div class="input-group">
+                  <label class="input-label" for="taxRate">예상 세금 및 보험료율 (%)</label>
+                  <div class="input-wrapper">
+                    <input class="input-field" id="taxRate" type="number" min="0" max="60" value="15" inputmode="numeric" placeholder="예: 15"/>
+                    <span class="input-unit">%</span>
+                  </div>
+                  <p class="input-note">※ 종합소득세 및 건강보험/국민연금 대비 (평균 15~25% 권장)</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recalculate Trigger Button -->
+            <button class="btn-submit" type="button" onclick="calculateRates()">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+              최소 단가 영수증 재계산
+            </button>
+          </form>
+        </div>
+
+        <!-- Right Column: Receipt Card & Actions -->
+        <div class="receipt-container">
+          <div class="receipt-paper" id="receiptArea">
+            <!-- Decorative Punch Hole (CLEAN, NO OVERLAPPING BUTTON) -->
+            <div class="punch-hole"></div>
+
             <!-- Receipt Header -->
-            <div class="text-center border-b-2 border-dashed border-slate-200 pb-5 mb-5">
-              <h2 class="text-xl font-black tracking-widest text-slate-900">FREELANCE INVOICE REVERSE</h2>
-              <p class="text-xs text-slate-400 mt-1" id="receiptDate">DATE: 2026.10.20 00:00:00</p>
-              <p class="text-xs text-emerald-600 font-bold">STATUS: OFFICIAL ESTIMATE GENERATED</p>
+            <div class="receipt-header">
+              <div class="receipt-title">FREELANCE INVOICE REVERSE</div>
+              <div class="receipt-date" id="receiptDate">DATE: 2026.10.20</div>
+              <span class="receipt-badge">ESTIMATE GENERATED</span>
             </div>
 
-            <!-- Receipt Breakdown Table -->
-            <div class="space-y-3">
-              <div class="flex justify-between items-center text-xs text-slate-500 font-semibold tracking-wider">
-                <span>ITEM DESCRIPTION</span>
-                <span>AMOUNT (KRW)</span>
+            <!-- Itemized breakdown -->
+            <div class="receipt-row heading">
+              <span>ITEM DESCRIPTION</span>
+              <span>AMOUNT (KRW)</span>
+            </div>
+
+            <div class="receipt-row">
+              <span>1. Target Net Income (목표 실수령액)</span>
+              <span class="receipt-val" id="recNet">5,000,000 원</span>
+            </div>
+            <div class="receipt-row">
+              <span>2. Estimated Tax Buffer (예상 세금/보험)</span>
+              <span class="receipt-val" id="recTax">882,353 원</span>
+            </div>
+            <div class="receipt-row">
+              <span>3. Monthly Expenses (월 고정 경비)</span>
+              <span class="receipt-val expense" id="recExpenses">+ 500,000 원</span>
+            </div>
+
+            <div class="receipt-divider"></div>
+
+            <!-- Min Monthly Revenue -->
+            <div class="receipt-highlight">
+              <span class="highlight-label">★ MIN MONTHLY REVENUE (필요 월 매출)</span>
+              <span class="highlight-value" id="recGross">6,382,353 원</span>
+            </div>
+
+            <!-- Time breakdown -->
+            <div class="receipt-row">
+              <span>Monthly Working Time (총 가동 시간)</span>
+              <span class="receipt-val" id="recTotalHours">120 시간 / 월</span>
+            </div>
+            <div class="receipt-row">
+              <span>Billable Overhead Rate (비가동률)</span>
+              <span class="receipt-val" id="recOverhead">30 %</span>
+            </div>
+            <div class="receipt-row">
+              <span>Net Billable Time (실 청구 가능 시간)</span>
+              <span class="receipt-val" id="recBillableHours">84.0 시간 / 월</span>
+            </div>
+
+            <div class="receipt-divider"></div>
+
+            <!-- Rates Output Grid -->
+            <div class="rate-grid">
+              <div class="rate-card">
+                <div class="rate-card-title">MIN HOURLY RATE (최소 시급)</div>
+                <div class="rate-card-val" id="recHourlyRate">75,980 원</div>
               </div>
-              <div class="border-t border-slate-200 pt-3 space-y-2">
-                <div class="flex justify-between">
-                  <span class="text-slate-600">1. Target Net Income (목표 실수령)</span>
-                  <span class="font-bold text-slate-900" id="recNet">5,000,000 원</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-slate-600">2. Estimated Tax Buffer (예상 세금/보험)</span>
-                  <span class="font-bold text-slate-900" id="recTax">882,353 원</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-slate-600">3. Monthly Expenses (월 고정 경비)</span>
-                  <span class="font-bold text-red-500" id="recExpenses">+ 500,000 원</span>
-                </div>
+              <div class="rate-card">
+                <div class="rate-card-title">MIN DAILY RATE (최소 일급)</div>
+                <div class="rate-card-val" id="recDailyRate">455,882 원</div>
               </div>
+            </div>
 
-              <!-- Required Monthly Revenue -->
-              <div class="flex justify-between items-center bg-slate-100/80 p-3.5 rounded-xl border border-slate-200 my-3">
-                <span class="font-bold text-slate-800 text-xs sm:text-sm">★ MIN MONTHLY REVENUE (필요 총매출)</span>
-                <span class="text-lg font-black text-indigo-600" id="recGross">6,382,353 원</span>
+            <div class="man-month-card">
+              <div class="man-month-title">STANDARD MAN-MONTH RATE (1MM 투입 단가)</div>
+              <div class="man-month-val" id="recManMonthRate">6,382,353 원</div>
+              <div class="man-month-note">※ 1달간 본 프로젝트에 100% 리소스를 전담할 때 청구할 최소 견적</div>
+            </div>
+
+            <!-- Negotiation Guide Card -->
+            <div class="negotiation-box">
+              <div class="negotiation-header">
+                <span>💡</span> 외주 수주 협상 실무 가이드
               </div>
-
-              <!-- Billable Time Details -->
-              <div class="space-y-1.5 text-xs text-slate-600 pt-1">
-                <div class="flex justify-between">
-                  <span>총 가동 시간 (Total Monthly Hours)</span>
-                  <span id="recTotalHours">120 시간 / 월</span>
-                </div>
-                <div class="flex justify-between">
-                  <span>비가동 시간 비율 (Overhead 30%)</span>
-                  <span id="recOverhead">30 %</span>
-                </div>
-                <div class="flex justify-between font-bold text-slate-800">
-                  <span>실 청구 가능 시간 (Net Billable)</span>
-                  <span class="text-indigo-600" id="recBillableHours">84.0 시간 / 월</span>
-                </div>
-              </div>
-
-              <div class="border-t-4 border-double border-slate-300 my-4"></div>
-
-              <!-- Recommended Minimum Rates -->
-              <div class="space-y-3">
-                <div class="text-center font-bold text-slate-500 text-xs tracking-wider">RECOMMENDED MINIMUM RATES</div>
-                <div class="grid grid-cols-2 gap-3">
-                  <div class="bg-indigo-50/60 p-3.5 rounded-xl text-center border border-indigo-100">
-                    <div class="text-[11px] text-indigo-600 font-bold mb-1">최소 권장 시급 (Hourly)</div>
-                    <div class="text-base sm:text-lg font-black text-slate-900" id="recHourlyRate">75,980 원</div>
-                  </div>
-                  <div class="bg-indigo-50/60 p-3.5 rounded-xl text-center border border-indigo-100">
-                    <div class="text-[11px] text-indigo-600 font-bold mb-1">최소 일급 (Daily, 1MD)</div>
-                    <div class="text-base sm:text-lg font-black text-slate-900" id="recDailyRate">455,882 원</div>
-                  </div>
-                </div>
-
-                <div class="bg-emerald-50/60 p-4 rounded-xl border border-emerald-100 text-center">
-                  <div class="text-[11px] text-emerald-700 font-bold mb-1">표준 맨먼스 투입 단가 (1MM 월 계약가)</div>
-                  <div class="text-xl sm:text-2xl font-black text-emerald-600" id="recManMonthRate">6,382,353 원</div>
-                  <p class="text-[10px] text-emerald-600/80 mt-1">※ 1개 프로젝트에 한 달간 100% 리소스를 전담할 때 청구할 마지노선입니다.</p>
-                </div>
-              </div>
-
-              <!-- Negotiation Matrix -->
-              <div class="mt-4 p-3 bg-slate-100/70 rounded-xl border border-slate-200 text-xs space-y-1.5">
-                <div class="font-bold text-slate-700 flex items-center justify-between">
-                  <span>💡 클라이언트 제안 가이드</span>
-                  <span class="text-[10px] text-indigo-600 font-semibold">네고 대비 버퍼</span>
-                </div>
-                <div class="grid grid-cols-2 gap-2 pt-1 text-[11px]">
-                  <div class="bg-white p-2.5 rounded-lg border border-slate-200">
-                    <div class="text-slate-500">최저 수주 마지노선</div>
-                    <div class="font-black text-slate-800" id="recFloorRate">75,980 원 / h</div>
-                  </div>
-                  <div class="bg-indigo-50 p-2.5 rounded-lg border border-indigo-100">
-                    <div class="text-indigo-600 font-semibold">권장 견적서 제안가 (+15%)</div>
-                    <div class="font-black text-indigo-700" id="recOfferRate">87,377 원 / h</div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Receipt Footer -->
-              <div class="text-center border-t-2 border-dashed border-slate-200 pt-5 mt-5 text-[10px] text-slate-400 space-y-1">
-                <p class="font-semibold text-slate-500">"Don't undersell yourself. Professional work deserves professional pay."</p>
-                <p class="font-mono text-[9px] text-slate-300">freelance-rate-calc.enjoy-onepage.com</p>
+              <p>최저 마지노선 이하로 수주하면 적자(시급 미달)가 발생합니다. 클라이언트 제안 시 15% 협상 버퍼를 얹어 제안하세요.</p>
+              <div class="negotiation-prices">
+                <span>최저 마지노선: <strong id="recMinFloor">75,980원/h</strong></span>
+                <span>권장 제안가(+15%): <strong id="recRecQuote" style="color:#b45309;">87,400원/h</strong></span>
               </div>
             </div>
           </div>
+
+          <!-- Crisp Action Toolbar (Placed cleanly below receipt) -->
+          <div class="receipt-toolbar">
+            <button type="button" class="toolbar-btn primary" onclick="downloadReceiptImage()">
+              <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+              </svg>
+              <span>영수증 PNG 저장</span>
+            </button>
+            <button type="button" class="toolbar-btn secondary" onclick="copyResultSummary()">
+              <svg width="15" height="15" fill="none" stroke="#fbbf24" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/>
+              </svg>
+              <span>견적 요약 복사</span>
+            </button>
+            <button type="button" class="toolbar-btn outline" onclick="shareRateCard()">
+              <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+              </svg>
+              <span>공유하기</span>
+            </button>
+          </div>
         </div>
 
-        <!-- 영수증 바로 밑 고시인성 애드센스 배너 (Viewability 90% 이상 타겟) -->
-        <div class="manual-ad-box ad-receipt-banner mt-6 text-center" style="width: 100%; min-height: 250px;">
-          <ins class="adsbygoogle"
-               style="display:block"
-               data-ad-client="ca-pub-2228289204702106"
-               data-ad-slot="3416334507"
-               data-ad-format="auto"
-               data-full-width-responsive="true"></ins>
-          <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-          </script>
+      </div>
+    </main>
+
+    <!-- Mid AdSense Banner -->
+    <div class="manual-ad-box">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-2228289204702106"
+           data-ad-slot="1186914926"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- Practical Guide & FAQ Section (Harmonious Light Theme) -->
+    <section class="guide-card">
+      <div class="guide-header">
+        <h2 class="guide-title">
+          <span>📖</span> 프리랜서 적정 시급 및 프로젝트 견적 산출 실무 공식 가이드
+        </h2>
+        <p class="guide-subtitle">정규직 환산 연봉, 비업무 시간(영업/미팅), 4대보험 및 장비 감가상각비를 반영한 손익분기 견적법입니다.</p>
+      </div>
+
+      <!-- Core Pillars -->
+      <div class="guide-pillars">
+        <div class="pillar-box">
+          <div class="pillar-box-title">
+            <span class="pillar-dot"></span>실질 가동률(Utilization Rate)
+          </div>
+          <p class="pillar-box-desc">프리랜서의 실질 작업 시간은 약 60~70%입니다. 나머지 30~40%는 영업, 계약, 미팅, 수정 작업이므로 기본 시급에 1.5~1.8배를 가산해야 합니다.</p>
+        </div>
+        <div class="pillar-box">
+          <div class="pillar-box-title">
+            <span class="pillar-dot"></span>퇴직금 및 복리후생 보정
+          </div>
+          <p class="pillar-box-desc">정규직의 퇴직금(1/12), 연차수당, 4대보험 회사부담금(약 10%)을 직접 보전하기 위해 최소 25%의 오버헤드 마진을 책정합니다.</p>
+        </div>
+        <div class="pillar-box">
+          <div class="pillar-box-title">
+            <span class="pillar-dot"></span>긴급 납기 및 수정 리스크
+          </div>
+          <p class="pillar-box-desc">무리한 일정이나 주말 작업이 포함된 프로젝트는 기본 단가의 30~50%를 긴급 할증으로 계약서에 사전에 명시해야 합니다.</p>
         </div>
       </div>
-    </div>
-  </div>
-</div>
 
-<!-- 상세 가이드 & FAQ 아코디언 -->
-<section class="max-w-4xl mx-auto my-12 px-4">
-  <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-sm">
-    <div class="border-b border-slate-200 dark:border-slate-800 pb-5 mb-6">
-      <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2.5">
-        <span>📖</span> 프리랜서 적정 시급 및 프로젝트 견적 산출 실무 가이드
-      </h3>
-      <p class="text-sm text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">정규직 환산 연봉, 비업무 시간(영업/미팅), 4대보험 및 장비 감가상각비를 반영한 손익분기 견적법입니다.</p>
-    </div>
-
-    <!-- 핵심 산출 기준 -->
-    <div class="mb-8">
-      <h4 class="text-xs font-black uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-4 flex items-center gap-1.5">
-        <span>⚖️</span> 핵심 산출 기준 및 법정 원리
-      </h4>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
-        <div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200/80 dark:border-slate-700/80">
-          <h4 class="text-base font-bold text-slate-800 dark:text-slate-100 mb-1.5 flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-blue-500"></span>실질 가동률(Utilization Rate) 반영
-          </h4>
-          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">프리랜서의 1년 근로일 중 실제 유급 작업 시간은 약 60~70%(나머지는 영업, 미팅, 수정)이므로 기본 시급에 1.4~1.6배를 가산해야 합니다.</p>
-        </div>
-        <div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200/80 dark:border-slate-700/80">
-          <h4 class="text-base font-bold text-slate-800 dark:text-slate-100 mb-1.5 flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-blue-500"></span>퇴직금 및 복리후생 보정 계수
-          </h4>
-          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">정규직과 달리 4대보험 사업주 부담분과 퇴직금이 없으므로 연봉 단순 나누기 대비 최소 20~25%의 마진을 확보해야 합니다.</p>
-        </div>
-        <div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200/80 dark:border-slate-700/80">
-          <h4 class="text-base font-bold text-slate-800 dark:text-slate-100 mb-1.5 flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-blue-500"></span>고정 운영비 및 감가상각비
-          </h4>
-          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">작업실 임대료, 소프트웨어 구독료(Adobe, JetBrains 등), PC 장비 감가상각비를 시간당 단가에 선반영해야 적자가 나지 않습니다.</p>
-        </div>
+      <!-- FAQ Section -->
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>클라이언트가 무리한 수정을 요구할 때 견적 기준은?</summary>
+          <div class="faq-content">
+            계약서 작성 시 '무상 기본 수정 2회'를 명시하고, 기획 변경이나 추가 시안 요구는 시간당 청구 단가(Hourly Rate)를 기준으로 추가 과금하는 특약을 반드시 포함해야 합니다.
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>시급제(타임차지)와 프로젝트 고정가(Fixed Price) 중 무엇이 유리한가요?</summary>
+          <div class="faq-content">
+            작업 범위(Scope)가 명확한 작업은 고정가가 유리하며, 기획이 미확정되어 수정 요구가 잦은 개발·디자인 외주는 시급제(또는 주간 단위 정산) 계약이 훨씬 안전합니다.
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>계산된 적정 시급보다 시장 단가가 낮을 땐 어떻게 대처하나요?</summary>
+          <div class="faq-content">
+            무조건 단가를 깎지 말고, 업무 범위를 줄이거나 템플릿화·자동화 도구를 활용해 실제 작업 소요 시간을 단축함으로써 실질 시간당 수익률을 지키는 전략을 추천합니다.
+          </div>
+        </details>
       </div>
+    </section>
+
+    <!-- Related Utilities Navigation -->
+    <section class="related-card">
+      <div class="related-title">
+        <span>💡</span> 함께 많이 활용하는 필수 계산기 &amp; 도구
+      </div>
+      <div class="related-grid">
+        <a class="tool-link" href="https://severance.enjoy-onepage.com/" target="_blank" rel="noopener noreferrer">
+          <div>
+            <div class="tool-badge">추천 유틸리티</div>
+            <div class="tool-name">퇴직금 계산기</div>
+          </div>
+          <span class="tool-arrow">→</span>
+        </a>
+        <a class="tool-link" href="https://overtime.enjoy-onepage.com/" target="_blank" rel="noopener noreferrer">
+          <div>
+            <div class="tool-badge">추천 유틸리티</div>
+            <div class="tool-name">야근·휴일수당 계산기</div>
+          </div>
+          <span class="tool-arrow">→</span>
+        </a>
+        <a class="tool-link" href="https://unemployed.enjoy-onepage.com/" target="_blank" rel="noopener noreferrer">
+          <div>
+            <div class="tool-badge">추천 유틸리티</div>
+            <div class="tool-name">실업급여 모의계산기</div>
+          </div>
+          <span class="tool-arrow">→</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Topic Cluster Reverse Link Banner -->
+    <div class="cluster-banner">
+      <div>
+        <div class="cluster-title">프리랜서 외주 수주 전략</div>
+        <div class="cluster-desc">프리랜서 시간당 공수(M/D) 및 외주 용역 단가 산정 가이드</div>
+      </div>
+      <a class="cluster-btn" href="https://finance-kr.enjoy-onepage.com/2026/09/25/대안신용평가-대출조건/" target="_blank" rel="noopener noreferrer">
+        가이드 읽기 →
+      </a>
     </div>
+
+    <!-- Legal Disclaimer -->
+    <div class="disclaimer-box">
+      ※ 본 도구의 산출 결과는 표준 재무 가이드에 기반한 참고용 견적이며 법적 구속력을 갖지 않습니다.
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+      <div class="footer-links">
+        <a class="footer-link" href="terms.html">이용약관</a>
+        <span>|</span>
+        <a class="footer-link" href="privacy.html">개인정보처리방침</a>
+      </div>
+      <p>© 2026 OnePage Factory. All rights reserved.</p>
+    </footer>
+
+    <!-- Bottom AdSense Banner -->
+    <div class="manual-ad-box" style="min-height:280px; margin-top: 1rem;">
+      <ins class="adsbygoogle"
+           data-ad-client="ca-pub-2228289204702106"
+           data-ad-format="auto"
+           data-ad-slot="3416334507"
+           data-full-width-responsive="true"
+           style="display:block;min-height:280px;"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
   </div>
-</section>
 
+  <!-- Toast Element -->
+  <div id="globalToast"></div>
 
-<!-- 추가 하단 배너 (가이드 하단) -->
-<div class="manual-ad-box ad-bottom-banner my-6 text-center">
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-2228289204702106"
-       data-ad-slot="1186914926"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
-
-<!-- Footer -->
-<footer class="w-full max-w-3xl text-center text-sm text-slate-500 py-6 border-t border-slate-200">
-  <div class="flex justify-center gap-4 mb-2">
-    <a class="hover:text-slate-800 transition" href="terms.html">이용약관</a>
-    <span>|</span>
-    <a class="hover:text-slate-800 transition" href="privacy.html">개인정보처리방침</a>
-  </div>
-  <p>© 2026 OnePage Factory. All rights reserved.</p>
-</footer>
-
-<!-- JavaScript Core Logic -->
-<script>
-  // Presets definition
-  const PRESETS = {
-    designer: { net: 450, exp: 40, days: 20, hours: 6, overhead: 30, tax: 15 },
-    developer: { net: 650, exp: 60, days: 20, hours: 7, overhead: 25, tax: 18 },
-    video: { net: 400, exp: 35, days: 22, hours: 7, overhead: 30, tax: 15 },
-    marketing: { net: 420, exp: 30, days: 20, hours: 6, overhead: 35, tax: 15 }
-  };
-
-  function applyPreset(key) {
-    const p = PRESETS[key];
-    if (!p) return;
-    document.getElementById('targetNet').value = p.net;
-    document.getElementById('expenses').value = p.exp;
-    document.getElementById('workingDays').value = p.days;
-    document.getElementById('workingHours').value = p.hours;
-    document.getElementById('overheadRate').value = p.overhead;
-    document.getElementById('taxRate').value = p.tax;
-    calculateRates();
-    showToast('⚡ ' + key.toUpperCase() + ' 프리셋 수치가 적용되었습니다!');
-  }
-
-  function showToast(msg) {
-    const el = document.getElementById('toastMsg');
-    if (!el) return;
-    el.textContent = msg;
-    el.classList.add('show');
-    clearTimeout(window._toastTimer);
-    window._toastTimer = setTimeout(() => {
-      el.classList.remove('show');
-    }, 2200);
-  }
-
-  function formatKRW(val) {
-    return Math.round(val).toLocaleString('ko-KR') + ' 원';
-  }
-
-  function calculateRates() {
-    const targetNet = (parseFloat(document.getElementById('targetNet').value) || 0) * 10000;
-    const expenses = (parseFloat(document.getElementById('expenses').value) || 0) * 10000;
-    const workingDays = parseFloat(document.getElementById('workingDays').value) || 0;
-    const workingHours = parseFloat(document.getElementById('workingHours').value) || 0;
-    const taxRate = (parseFloat(document.getElementById('taxRate').value) || 0) / 100;
-    const overheadRate = (parseFloat(document.getElementById('overheadRate').value) || 0) / 100;
-
-    if (workingDays <= 0 || workingHours <= 0) return;
-
-    const safeTax = Math.min(taxRate, 0.8);
-    const targetGross = (targetNet / (1 - safeTax)) + expenses;
-    const taxAmount = targetGross - targetNet - expenses;
-
-    const totalHours = workingDays * workingHours;
-    const safeOverhead = Math.min(overheadRate, 0.9);
-    const billableHours = Math.max(totalHours * (1 - safeOverhead), 1);
-
-    const hourlyRate = billableHours > 0 ? (targetGross / billableHours) : 0;
-    const dailyRate = hourlyRate * workingHours;
-    const manMonthRate = targetGross;
-    const offerRate = hourlyRate * 1.15;
-
-    // Date
-    const now = new Date();
-    const formattedDate = `DATE: ${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
-    document.getElementById('receiptDate').textContent = formattedDate;
-
-    // DOM Updates
-    document.getElementById('recNet').textContent = formatKRW(targetNet);
-    document.getElementById('recTax').textContent = formatKRW(taxAmount);
-    document.getElementById('recExpenses').textContent = '+ ' + formatKRW(expenses);
-    document.getElementById('recGross').textContent = formatKRW(targetGross);
-
-    document.getElementById('recTotalHours').textContent = `${totalHours} 시간 / 월`;
-    document.getElementById('recOverhead').textContent = `${Math.round(safeOverhead * 100)} %`;
-    document.getElementById('recBillableHours').textContent = `${billableHours.toFixed(1)} 시간 / 월`;
-
-    document.getElementById('recHourlyRate').textContent = formatKRW(hourlyRate);
-    document.getElementById('recDailyRate').textContent = formatKRW(dailyRate);
-    document.getElementById('recManMonthRate').textContent = formatKRW(manMonthRate);
-
-    document.getElementById('recFloorRate').textContent = formatKRW(hourlyRate) + ' / h';
-    document.getElementById('recOfferRate').textContent = formatKRW(offerRate) + ' / h';
-  }
-
-  function copyResultSummary() {
-    const net = document.getElementById('recNet').textContent;
-    const gross = document.getElementById('recGross').textContent;
-    const hourly = document.getElementById('recHourlyRate').textContent;
-    const daily = document.getElementById('recDailyRate').textContent;
-    const monthly = document.getElementById('recManMonthRate').textContent;
-    const offer = document.getElementById('recOfferRate').textContent;
-
-    const text = `🧾 [프리랜서 외주 단가 역산 견적서]
-• 목표 월 실수령액: ${net}
-• 필요 월 총매출: ${gross}
-----------------------------------
-★ 최소 권장 시급: ${hourly}
-★ 최소 일급 (1MD): ${daily}
-★ 1MM 표준 투입단가: ${monthly}
-💡 협상 권장 제안가: ${offer}
-----------------------------------
-📌 단가 계산기: https://freelance-rate-calc.enjoy-onepage.com`;
-
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(() => showToast('📋 견적 요약이 클립보드에 복사되었습니다!'));
-    } else {
-      showToast('복사 기능을 지원하지 않는 브라우저입니다.');
+  <!-- Application Logic -->
+  <script>
+    function formatKRW(val) {
+      if (!Number.isFinite(val)) return '0 원';
+      return Math.round(val).toLocaleString('ko-KR') + ' 원';
     }
-  }
 
-  function shareRateCard() {
-    if (navigator.share) {
-      navigator.share({
+    function calculateRates() {
+      const targetNet = (parseFloat(document.getElementById('targetNet').value) || 0) * 10000;
+      const expenses = (parseFloat(document.getElementById('expenses').value) || 0) * 10000;
+      const workingDays = parseFloat(document.getElementById('workingDays').value) || 0;
+      const workingHours = parseFloat(document.getElementById('workingHours').value) || 0;
+      const overheadRate = (parseFloat(document.getElementById('overheadRate').value) || 0) / 100;
+      const taxRate = (parseFloat(document.getElementById('taxRate').value) || 0) / 100;
+
+      if (workingDays <= 0 || workingHours <= 0) {
+        showToast('근무 일수와 근무 시간은 1 이상이어야 합니다.');
+        return;
+      }
+      if (taxRate >= 1) {
+        showToast('세율은 100% 미만이어야 합니다.');
+        return;
+      }
+
+      // Calculations
+      const targetGross = (targetNet / (1 - taxRate)) + expenses;
+      const taxAmount = targetGross - targetNet - expenses;
+      const totalHours = workingDays * workingHours;
+      const billableHours = totalHours * (1 - overheadRate);
+
+      if (billableHours <= 0) {
+        showToast('비가동률이 너무 높아 청구 가능 시간이 없습니다.');
+        return;
+      }
+
+      const hourlyRate = targetGross / billableHours;
+      const dailyRate = hourlyRate * workingHours;
+      const manMonthRate = targetGross;
+      const recQuoteHourly = hourlyRate * 1.15;
+
+      // Update date
+      const now = new Date();
+      const dateStr = `DATE: ${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')}`;
+      document.getElementById('receiptDate').textContent = dateStr;
+
+      // Populate DOM
+      document.getElementById('recNet').textContent = formatKRW(targetNet);
+      document.getElementById('recTax').textContent = formatKRW(taxAmount);
+      document.getElementById('recExpenses').textContent = '+ ' + formatKRW(expenses);
+      document.getElementById('recGross').textContent = formatKRW(targetGross);
+
+      document.getElementById('recTotalHours').textContent = `${totalHours} 시간 / 월`;
+      document.getElementById('recOverhead').textContent = `${Math.round(overheadRate * 100)} %`;
+      document.getElementById('recBillableHours').textContent = `${billableHours.toFixed(1)} 시간 / 월`;
+
+      document.getElementById('recHourlyRate').textContent = formatKRW(hourlyRate);
+      document.getElementById('recDailyRate').textContent = formatKRW(dailyRate);
+      document.getElementById('recManMonthRate').textContent = formatKRW(manMonthRate);
+
+      document.getElementById('recMinFloor').textContent = formatKRW(hourlyRate) + '/h';
+      document.getElementById('recRecQuote').textContent = formatKRW(recQuoteHourly) + '/h';
+    }
+
+    function applyPreset(net, exp, days, hours, overhead, tax, btn) {
+      document.getElementById('targetNet').value = net;
+      document.getElementById('expenses').value = exp;
+      document.getElementById('workingDays').value = days;
+      document.getElementById('workingHours').value = hours;
+      document.getElementById('overheadRate').value = overhead;
+      document.getElementById('taxRate').value = tax;
+
+      document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      calculateRates();
+      showToast(`${btn.querySelector('.preset-role').textContent.trim()} 프리셋 적용 완료!`);
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('globalToast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => { toast.classList.remove('show'); }, 2200);
+    }
+
+    function copyResultSummary() {
+      const hourly = document.getElementById('recHourlyRate').textContent;
+      const daily = document.getElementById('recDailyRate').textContent;
+      const mm = document.getElementById('recManMonthRate').textContent;
+      const rec = document.getElementById('recRecQuote').textContent;
+
+      const summary = `[프리랜서 외주 적정 단가 산출표]
+- 최소 마지노선 시급: ${hourly}
+- 일일 기준 단가(일급): ${daily}
+- 1MM 전담 프로젝트 견적: ${mm}
+- 권장 고객 제안가(+15% 버퍼): ${rec}
+
+👉 계산기 바로가기: ${window.location.href}`;
+
+      navigator.clipboard.writeText(summary).then(() => {
+        showToast('견적 요약이 클립보드에 복사되었습니다! 🎉');
+      }).catch(() => {
+        showToast('복사에 실패했습니다.');
+      });
+    }
+
+    function shareRateCard() {
+      const shareData = {
         title: '프리랜서 외주 단가 역산기',
-        text: '목표 실수령액 기준으로 세금과 비가동 시간을 반영한 내 적정 외주 단가를 확인해보세요!',
+        text: '목표 실수령액 기준 나의 적정 외주 시급과 프로젝트 견적을 계산해보세요.',
         url: window.location.href
-      }).catch(() => {});
-    } else {
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(window.location.href);
-        showToast('🔗 사이트 링크가 복사되었습니다!');
+      };
+      if (navigator.share) {
+        navigator.share(shareData).catch(() => {});
+      } else {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          showToast('페이지 링크가 복사되었습니다!');
+        });
       }
     }
-  }
 
-  function downloadReceiptImage() {
-    const canvas = document.createElement('canvas');
-    canvas.width = 800;
-    canvas.height = 1120;
-    const ctx = canvas.getContext('2d');
+    function downloadReceiptImage() {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const width = 800;
+      const height = 1040;
+      canvas.width = width * 2;
+      canvas.height = height * 2;
+      ctx.scale(2, 2);
 
-    // Background
-    ctx.fillStyle = '#f8f7f2';
-    ctx.fillRect(0, 0, 800, 1120);
+      // Background
+      ctx.fillStyle = '#fdfcf7';
+      ctx.fillRect(0, 0, width, height);
 
-    // Card background with dashed border
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(40, 40, 720, 1040);
-    ctx.lineWidth = 3;
-    ctx.setLineDash([8, 8]);
-    ctx.strokeStyle = '#cbd5e1';
-    ctx.strokeRect(40, 40, 720, 1040);
-    ctx.setLineDash([]);
+      // Dashed border
+      ctx.strokeStyle = '#cbd5e1';
+      ctx.lineWidth = 3;
+      ctx.setLineDash([8, 6]);
+      ctx.strokeRect(24, 24, width - 48, height - 48);
+      ctx.setLineDash([]);
 
-    // Header
-    ctx.fillStyle = '#0f172a';
-    ctx.font = 'bold 30px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('FREELANCE INVOICE REVERSE', 400, 110);
+      // Punch hole
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.arc(width / 2, 24, 16, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
 
-    ctx.fillStyle = '#64748b';
-    ctx.font = '15px monospace';
-    const now = new Date();
-    const dateStr = now.getFullYear() + '.' + String(now.getMonth() + 1).padStart(2, '0') + '.' + String(now.getDate()).padStart(2, '0');
-    ctx.fillText('DATE: ' + dateStr + ' | STATUS: VERIFIED ESTIMATE', 400, 145);
+      // Header
+      ctx.fillStyle = '#0f172a';
+      ctx.font = 'bold 24px -apple-system, monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText('FREELANCE INVOICE REVERSE', width / 2, 80);
 
-    // Divider
-    ctx.setLineDash([4, 4]);
-    ctx.strokeStyle = '#e2e8f0';
-    ctx.beginPath();
-    ctx.moveTo(70, 175);
-    ctx.lineTo(730, 175);
-    ctx.stroke();
-    ctx.setLineDash([]);
+      ctx.fillStyle = '#64748b';
+      ctx.font = '14px monospace';
+      ctx.fillText(document.getElementById('receiptDate').textContent, width / 2, 110);
+      ctx.fillText('STATUS: OFFICIAL ESTIMATE GENERATED', width / 2, 130);
 
-    // Item Table
-    function drawRow(label, value, y, isBold, color) {
+      // Divider
+      ctx.strokeStyle = '#e2e8f0';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([6, 4]);
+      ctx.beginPath();
+      ctx.moveTo(48, 155);
+      ctx.lineTo(width - 48, 155);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Table Header
+      ctx.font = 'bold 14px monospace';
+      ctx.fillStyle = '#94a3b8';
       ctx.textAlign = 'left';
-      ctx.font = isBold ? 'bold 20px sans-serif' : '18px sans-serif';
-      ctx.fillStyle = isBold ? '#0f172a' : '#475569';
-      ctx.fillText(label, 70, y);
+      ctx.fillText('ITEM DESCRIPTION', 48, 185);
       ctx.textAlign = 'right';
-      ctx.fillStyle = color || '#1e293b';
-      ctx.fillText(value, 730, y);
+      ctx.fillText('AMOUNT (KRW)', width - 48, 185);
+
+      // Items
+      let y = 225;
+      const drawRow = (label, val, color) => {
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#475569';
+        ctx.font = '16px monospace';
+        ctx.fillText(label, 48, y);
+        ctx.textAlign = 'right';
+        ctx.fillStyle = color || '#0f172a';
+        ctx.font = 'bold 16px monospace';
+        ctx.fillText(val, width - 48, y);
+        y += 36;
+      };
+
+      drawRow('1. Target Net Income (목표 실수령액)', document.getElementById('recNet').textContent);
+      drawRow('2. Estimated Tax Buffer (세금/보험 대비)', document.getElementById('recTax').textContent);
+      drawRow('3. Monthly Expenses (월 고정 경비)', document.getElementById('recExpenses').textContent, '#dc2626');
+
+      // Highlight Box (Min Monthly Revenue)
+      y += 10;
+      ctx.fillStyle = '#eef2ff';
+      ctx.fillRect(48, y, width - 96, 56);
+      ctx.strokeStyle = '#c7d2fe';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(48, y, width - 96, 56);
+
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#3730a3';
+      ctx.font = 'bold 16px -apple-system, sans-serif';
+      ctx.fillText('★ MIN MONTHLY REVENUE (필요 월 매출)', 64, y + 35);
+      ctx.textAlign = 'right';
+      ctx.fillStyle = '#4338ca';
+      ctx.font = 'bold 22px monospace';
+      ctx.fillText(document.getElementById('recGross').textContent, width - 64, y + 36);
+
+      // Time breakdown
+      y += 90;
+      drawRow('Monthly Working Time (총 가동 시간)', document.getElementById('recTotalHours').textContent);
+      drawRow('Billable Overhead Rate (비가동률)', document.getElementById('recOverhead').textContent);
+      drawRow('Net Billable Time (실 청구 가능 시간)', document.getElementById('recBillableHours').textContent);
+
+      // Divider
+      y += 10;
+      ctx.strokeStyle = '#e2e8f0';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([6, 4]);
+      ctx.beginPath();
+      ctx.moveTo(48, y);
+      ctx.lineTo(width - 48, y);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // 2 Cards: Hourly & Daily
+      y += 30;
+      const boxW = (width - 96 - 20) / 2;
+      
+      // Hourly box
+      ctx.fillStyle = '#f8fafc';
+      ctx.fillRect(48, y, boxW, 80);
+      ctx.strokeStyle = '#e2e8f0';
+      ctx.strokeRect(48, y, boxW, 80);
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#6366f1';
+      ctx.font = 'bold 13px -apple-system, sans-serif';
+      ctx.fillText('MIN HOURLY RATE (최소 시급)', 48 + boxW / 2, y + 28);
+      ctx.fillStyle = '#0f172a';
+      ctx.font = 'bold 22px monospace';
+      ctx.fillText(document.getElementById('recHourlyRate').textContent, 48 + boxW / 2, y + 60);
+
+      // Daily box
+      ctx.fillStyle = '#f8fafc';
+      ctx.fillRect(48 + boxW + 20, y, boxW, 80);
+      ctx.strokeStyle = '#e2e8f0';
+      ctx.strokeRect(48 + boxW + 20, y, boxW, 80);
+      ctx.fillStyle = '#6366f1';
+      ctx.font = 'bold 13px -apple-system, sans-serif';
+      ctx.fillText('MIN DAILY RATE (최소 일급)', 48 + boxW + 20 + boxW / 2, y + 28);
+      ctx.fillStyle = '#0f172a';
+      ctx.font = 'bold 22px monospace';
+      ctx.fillText(document.getElementById('recDailyRate').textContent, 48 + boxW + 20 + boxW / 2, y + 60);
+
+      // Man-month full box
+      y += 100;
+      ctx.fillStyle = '#ecfdf5';
+      ctx.fillRect(48, y, width - 96, 90);
+      ctx.strokeStyle = '#a7f3d0';
+      ctx.strokeRect(48, y, width - 96, 90);
+      ctx.fillStyle = '#065f46';
+      ctx.font = 'bold 14px -apple-system, sans-serif';
+      ctx.fillText('STANDARD MAN-MONTH RATE (1MM 투입 단가)', width / 2, y + 30);
+      ctx.fillStyle = '#059669';
+      ctx.font = 'bold 28px monospace';
+      ctx.fillText(document.getElementById('recManMonthRate').textContent, width / 2, y + 68);
+
+      // Footer note
+      y += 120;
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '13px -apple-system, sans-serif';
+      ctx.fillText('이 영수증은 귀하의 가치와 비즈니스 유지를 보장합니다.', width / 2, y);
+      ctx.font = 'italic 12px monospace';
+      ctx.fillText("Don't undersell yourself. Professional work deserves professional pay.", width / 2, y + 22);
+
+      // Watermark
+      y += 48;
+      ctx.fillStyle = '#cbd5e1';
+      ctx.font = 'bold 11px monospace';
+      ctx.fillText('POWERED BY FREELANCER RATE CALCULATOR · ENJOY-ONEPAGE.COM', width / 2, y);
+
+      // Download
+      const link = document.createElement('a');
+      link.download = `freelance-rate-invoice-${Date.now()}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      showToast('영수증 PNG 이미지가 저장되었습니다! 📥');
     }
 
-    drawRow('1. 목표 월 실수령액', document.getElementById('recNet').textContent, 230);
-    drawRow('2. 예상 세금/보험 대비 (Buffer)', document.getElementById('recTax').textContent, 275);
-    drawRow('3. 월 고정 경비 (Expenses)', document.getElementById('recExpenses').textContent, 320, false, '#ef4444');
+    // Auto-calculate on load
+    document.addEventListener('DOMContentLoaded', () => {
+      calculateRates();
 
-    // Revenue Highlight Box
-    ctx.fillStyle = '#f1f5f9';
-    ctx.fillRect(70, 355, 660, 60);
-    ctx.textAlign = 'left';
-    ctx.fillStyle = '#334155';
-    ctx.font = 'bold 20px sans-serif';
-    ctx.fillText('★ 필요 월 매출 (Gross Revenue)', 90, 393);
-    ctx.textAlign = 'right';
-    ctx.fillStyle = '#4f46e5';
-    ctx.font = 'bold 24px sans-serif';
-    ctx.fillText(document.getElementById('recGross').textContent, 710, 394);
-
-    drawRow('실 청구 가능 시간 (Net Billable)', document.getElementById('recBillableHours').textContent, 465);
-
-    // Rates Box
-    ctx.fillStyle = '#eef2ff';
-    ctx.fillRect(70, 505, 660, 270);
-    ctx.strokeStyle = '#c7d2fe';
-    ctx.lineWidth = 2;
-    ctx.strokeRect(70, 505, 660, 270);
-
-    ctx.textAlign = 'center';
-    ctx.fillStyle = '#4f46e5';
-    ctx.font = 'bold 18px sans-serif';
-    ctx.fillText('RECOMMENDED MINIMUM RATES', 400, 545);
-
-    ctx.fillStyle = '#1e293b';
-    ctx.font = 'bold 22px sans-serif';
-    ctx.fillText('최소 시급 (Hourly): ' + document.getElementById('recHourlyRate').textContent, 400, 595);
-    ctx.fillText('최소 일급 (Daily 1MD): ' + document.getElementById('recDailyRate').textContent, 400, 645);
-
-    ctx.fillStyle = '#059669';
-    ctx.font = 'bold 26px sans-serif';
-    ctx.fillText('1MM 투입 단가: ' + document.getElementById('recManMonthRate').textContent, 400, 715);
-    ctx.font = '14px sans-serif';
-    ctx.fillStyle = '#10b981';
-    ctx.fillText('※ 해당 프로젝트 1달 100% 전담 시 기준', 400, 745);
-
-    // Tip Box
-    ctx.fillStyle = '#f8fafc';
-    ctx.fillRect(70, 805, 660, 115);
-    ctx.strokeStyle = '#e2e8f0';
-    ctx.strokeRect(70, 805, 660, 115);
-
-    ctx.textAlign = 'left';
-    ctx.fillStyle = '#0f172a';
-    ctx.font = 'bold 16px sans-serif';
-    ctx.fillText('💡 클라이언트 견적 제안 팁', 90, 837);
-    ctx.font = '15px sans-serif';
-    ctx.fillStyle = '#475569';
-    ctx.fillText('• 최저 마지노선: ' + document.getElementById('recHourlyRate').textContent + ' / 시간', 90, 870);
-    ctx.fillText('• 권장 최초 제안가 (+15% 네고 버퍼): ' + document.getElementById('recOfferRate').textContent, 90, 902);
-
-    // Watermark
-    ctx.textAlign = 'center';
-    ctx.fillStyle = '#94a3b8';
-    ctx.font = '14px sans-serif';
-    ctx.fillText('Don't undersell yourself. Professional work deserves professional pay.', 400, 965);
-    ctx.font = 'bold 15px monospace';
-    ctx.fillStyle = '#64748b';
-    ctx.fillText('https://freelance-rate-calc.enjoy-onepage.com', 400, 995);
-
-    // Download
-    const link = document.createElement('a');
-    link.download = '내_외주단가_영수증.png';
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-    showToast('📸 영수증 이미지가 다운로드되었습니다!');
-  }
-
-  // Auto calculate on input change & initial load
-  document.addEventListener('DOMContentLoaded', function() {
-    const inputs = document.querySelectorAll('#calcForm input');
-    inputs.forEach(input => {
-      input.addEventListener('input', calculateRates);
+      // Realtime recalculate on input change
+      const inputs = document.querySelectorAll('#calcForm input');
+      inputs.forEach(input => {
+        input.addEventListener('input', () => {
+          calculateRates();
+        });
+      });
     });
-    calculateRates();
-  });
-</script>
+  </script>
 </body>
 </html>
