@@ -9,7 +9,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta content="index, follow" name="robots"/>
-<title>프리랜서 외주 단가 역산기 | 목표 연봉 기준 적정</title>
+<title>프리랜서 외주 단가 역산기 | 목표 연봉 기준 적정 시급</title>
 <meta content="목표 연봉·월 실수령액, 주당 작업시간, 4대보험·세금, 운영 경비를 반영해 외주 적정 시급과 프로젝트 견적을 역산합니다." name="description"/>
 <meta content="프리랜서 단가 계산기, 외주 견적 계산기, 프리랜서 시급 역산, 개발자 디자이너 외주비용, 프리랜서 공임 계산, 1인 기업 견적, 적정 시급" name="keywords"/>
 <link href="https://freelance-rate-calc.enjoy-onepage.com/" rel="canonical"/>
@@ -25,7 +25,7 @@
 <!-- 오픈그래프 (OpenGraph) 메타 태그 -->
 <meta content="website" property="og:type"/>
 <meta content="외주단가계산기" property="og:site_name"/>
-<meta content="프리랜서 외주 단가 역산기 | 목표 연봉 기준 적정" property="og:title"/>
+<meta content="프리랜서 외주 단가 역산기 | 목표 연봉 기준 적정 시급" property="og:title"/>
 <meta content="목표 연봉·월 실수령액, 주당 작업시간, 4대보험·세금, 운영 경비를 반영해 외주 적정 시급과 프로젝트 견적을 역산합니다." property="og:description"/>
 <meta content="https://freelance-rate-calc.enjoy-onepage.com/" property="og:url"/>
 <meta content="https://freelance-rate-calc.enjoy-onepage.com/og-image.png" property="og:image"/>
@@ -34,7 +34,7 @@
 <meta content="ko_KR" property="og:locale"/>
 <!-- 트위터 카드 (Twitter Card) -->
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="프리랜서 외주 단가 역산기 | 목표 연봉 기준 적정" name="twitter:title"/>
+<meta content="프리랜서 외주 단가 역산기 | 목표 연봉 기준 적정 시급" name="twitter:title"/>
 <meta content="목표 연봉·월 실수령액, 주당 작업시간, 4대보험·세금, 운영 경비를 반영해 외주 적정 시급과 프로젝트 견적을 역산합니다." name="twitter:description"/>
 <meta content="https://freelance-rate-calc.enjoy-onepage.com/og-image.png" name="twitter:image"/>
 <!-- JSON-LD 구조화 데이터 (WebApplication Schema) -->
@@ -385,7 +385,7 @@
               return;
             }
 
-            const hourlyRate = targetGross / billableHours;
+            const hourlyRate = billableHours > 0 ? (targetGross / billableHours) : 0;
             const dailyRate = hourlyRate * workingHours;
             
             const manMonthRate = targetGross;
@@ -393,21 +393,21 @@
             // Update Date
             const now = new Date();
             const formattedDate = `DATE: ${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
-            document.getElementById('receiptDate').innerText = formattedDate;
+            document.getElementById('receiptDate').textContent = formattedDate;
 
             // Set values to DOM
-            document.getElementById('recNet').innerText = formatKRW(targetNet);
-            document.getElementById('recTax').innerText = formatKRW(taxAmount);
-            document.getElementById('recExpenses').innerText = '+ ' + formatKRW(expenses);
-            document.getElementById('recGross').innerText = formatKRW(targetGross);
+            document.getElementById('recNet').textContent = formatKRW(targetNet);
+            document.getElementById('recTax').textContent = formatKRW(taxAmount);
+            document.getElementById('recExpenses').textContent = '+ ' + formatKRW(expenses);
+            document.getElementById('recGross').textContent = formatKRW(targetGross);
             
-            document.getElementById('recTotalHours').innerText = `${totalHours} 시간`;
-            document.getElementById('recOverhead').innerText = `${overheadRate * 100} %`;
-            document.getElementById('recBillableHours').innerText = `${billableHours.toFixed(1)} 시간`;
+            document.getElementById('recTotalHours').textContent = `${totalHours} 시간`;
+            document.getElementById('recOverhead').textContent = `${overheadRate * 100} %`;
+            document.getElementById('recBillableHours').textContent = `${billableHours.toFixed(1)} 시간`;
 
-            document.getElementById('recHourlyRate').innerText = formatKRW(hourlyRate);
-            document.getElementById('recDailyRate').innerText = formatKRW(dailyRate);
-            document.getElementById('recManMonthRate').innerText = formatKRW(manMonthRate);
+            document.getElementById('recHourlyRate').textContent = formatKRW(hourlyRate);
+            document.getElementById('recDailyRate').textContent = formatKRW(dailyRate);
+            document.getElementById('recManMonthRate').textContent = formatKRW(manMonthRate);
 
             // Show Receipt
             const receipt = document.getElementById('receiptArea');
