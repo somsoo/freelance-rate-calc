@@ -167,532 +167,626 @@
   .ad-bottom { min-height: 280px !important; }
   .ad-bottom ins { min-height: 280px !important; }
 </style>
+
+<style id="custom-ux-polish">
+  .preset-btn { transition: all 0.2s ease; cursor: pointer; }
+  .preset-btn:hover { transform: translateY(-2px); border-color: #6366f1 !important; box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.15); }
+  .preset-btn:active { transform: scale(0.98); }
+  #toastMsg {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: rgba(15, 23, 42, 0.95);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 9999px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+  }
+  #toastMsg.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+  .manual-ad-box { width: 100%; max-width: 960px; }
+  .ad-receipt-banner ins { min-height: 250px; }
+</style>
 </head>
 <body class="flex flex-col items-center justify-center p-4">
-<!-- 상단 슬림 띠배너 (헤더 직하단: 50~60px 슬림형) -->
+<!-- Toast Notification -->
+<div id="toastMsg">알림 메시지</div>
+
+<!-- 상단 슬림 띠배너 -->
 <div class="manual-ad-box ad-top-banner" style="width: 100%; max-width: 960px; margin: 8px auto 16px; text-align: center;">
-<ins class="adsbygoogle" data-ad-client="ca-pub-2228289204702106" data-ad-format="horizontal" data-ad-slot="3824727725" data-full-width-responsive="true" style="display:inline-block;width:100%;height:60px;"></ins>
-<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  <ins class="adsbygoogle"
+       data-ad-client="ca-pub-2228289204702106"
+       data-ad-format="horizontal"
+       data-ad-slot="3824727725"
+       data-full-width-responsive="true"
+       style="display:inline-block;width:100%;height:60px;"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 </div>
-<!-- 상단 슬림 띠배너 (헤더 직하단: 50~60px 슬림형) -->
+
 <div class="glass-card w-full max-w-6xl overflow-hidden mb-6">
-<!-- LOGIC START -->
-<div class="w-full mx-auto p-6 sm:p-10">
-<!-- Header -->
-<div class="text-center mb-8">
-<div class="inline-flex items-center justify-center p-3 bg-indigo-100 text-indigo-600 rounded-2xl mb-4">
-<svg class="w-8 h-8" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-</div>
-<h1 class="text-2xl sm:text-3xl font-extrabold text-slate-800 tracking-tight">프리랜서 외주 단가 역산기</h1>
-<p class="text-slate-500 mt-2 text-sm sm:text-base">목표 월 실수령액을 기반으로 세금, 경비, 비가동 시간을 고려한 현실적인 최소 단가를 계산합니다.</p>
-</div>
-<!-- Form -->
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-<div class="lg:col-span-6 w-full">
-<form class="space-y-6" id="calcForm" onsubmit="return false;">
-<!-- Section 1: Income & Expenses -->
-<div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
-<h3 class="text-md font-bold text-slate-700 flex items-center gap-2">
-<span class="w-2 h-2 rounded-full bg-indigo-500"></span> 목표 수입 및 지출
-              </h3>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-<div>
-<label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">목표 월 실수령액 (만원)</label>
-<div class="relative">
-<input class="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium text-slate-800" id="targetNet" min="1" placeholder="예: 500" required="" type="number" value="500" aria-label="예: 500" / inputmode="numeric">
-<span class="absolute right-4 top-3.5 text-slate-400 font-medium text-sm">만원</span>
-</div>
-</div>
-<div>
-<label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">월 고정 경비 (만원)</label>
-<div class="relative">
-<input class="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium text-slate-800" id="expenses" min="0" placeholder="임대료, 프로그램 구독료 등" required="" type="number" value="50" aria-label="임대료, 프로그램 구독료 등" / inputmode="numeric">
-<span class="absolute right-4 top-3.5 text-slate-400 font-medium text-sm">만원</span>
-</div>
-</div>
-</div>
-</div>
-<!-- Section 2: Time & Overhead -->
-<div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
-<h3 class="text-md font-bold text-slate-700 flex items-center gap-2">
-<span class="w-2 h-2 rounded-full bg-indigo-500"></span> 근무 환경 설정
-              </h3>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-<div>
-<label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">월 근무 일수 (일)</label>
-<div class="relative">
-<input class="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium text-slate-800" id="workingDays" max="31" min="1" placeholder="예: 20" required="" type="number" value="20" aria-label="예: 20" / inputmode="numeric">
-<span class="absolute right-4 top-3.5 text-slate-400 font-medium text-sm">일</span>
-</div>
-</div>
-<div>
-<label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">하루 실제 집중 근무 시간 (시간)</label>
-<div class="relative">
-<input class="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium text-slate-800" id="workingHours" max="24" min="1" placeholder="예: 6" required="" type="number" value="6" aria-label="예: 6" / inputmode="numeric">
-<span class="absolute right-4 top-3.5 text-slate-400 font-medium text-sm">시간</span>
-</div>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-<div>
-<label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">비가동 시간 비율 (%)</label>
-<div class="relative">
-<input class="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium text-slate-800" id="overheadRate" max="90" min="0" placeholder="영업, 미팅, 학습 시간 비율" required="" type="number" value="30" aria-label="영업, 미팅, 학습 시간 비율" / inputmode="numeric">
-<span class="absolute right-4 top-3.5 text-slate-400 font-medium text-sm">%</span>
-</div>
-<p class="text-[11px] text-slate-400 mt-1">※ 전체 업무 시간 중 영업, 관리 등 실제 작업 비용을 청구할 수 없는 시간의 비중입니다.</p>
-</div>
-<div>
-<label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">예상 종합소득세 + 보험료율 (%)</label>
-<div class="relative">
-<input class="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium text-slate-800" id="taxRate" max="50" min="0" placeholder="예: 프리랜서 3.3% + 건강보험 등" required="" type="number" value="15" aria-label="예: 프리랜서 3.3% + 건강보험 등" / inputmode="numeric">
-<span class="absolute right-4 top-3.5 text-slate-400 font-medium text-sm">%</span>
-</div>
-<p class="text-[11px] text-slate-400 mt-1">※ 프리랜서는 종합소득세 및 건강/국민연금을 직접 납부해야 합니다. (평균 15~25% 권장)</p>
-</div>
-</div>
-</div>
-<!-- Action Button -->
-<button class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl shadow-lg shadow-indigo-100 hover:shadow-indigo-200 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2 whitespace-nowrap" onclick="calculateRates()" type="button">
-<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-              최소 단가 영수증 발행하기
-            </button>
-</form>
-<!-- Receipt Output Area -->
-</div>
-<div class="lg:col-span-6 lg:sticky lg:top-8 w-full">
-<div class="receipt mt-8 hidden" id="receiptArea">
-<div class="bg-[#FCFBF7] text-slate-800 p-6 sm:p-8 rounded-2xl border-2 border-dashed border-slate-300 relative shadow-inner font-mono text-sm leading-relaxed">
-<!-- Punch Hole Decorator -->
-<div class="absolute -top-3 left-1/2 transform -translate-x-1/2 flex space-x-1">
-<div class="w-6 h-6 rounded-full bg-slate-50 border border-slate-100"></div>
-<!-- 원클릭 결과 복사 버튼 -->
-<div class="mt-4 text-center">
-<button class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-slate-800 hover:bg-slate-900 text-white text-sm font-bold rounded-xl shadow-md transition-all duration-200 whitespace-nowrap" onclick="window.copyResultToClipboard()" type="button">
-<svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-<span>결과 전체 복사하기</span>
-</button>
-</div>
-</div>
-<!-- Receipt Header -->
-<div class="text-center border-b-2 border-dashed border-slate-200 pb-6 mb-6">
-<h2 class="text-xl font-black tracking-widest text-slate-900">FREELANCE INVOICE REVERSE</h2>
-<p class="text-xs text-slate-400 mt-1" id="receiptDate">DATE: 202X.00.00 00:00:00</p>
-<p class="text-xs text-slate-400">STATUS: CALCULATION SUCCESS</p>
-</div>
-<!-- Receipt Content -->
-<div class="space-y-4">
-<div class="flex justify-between items-center text-xs text-slate-500 font-semibold tracking-wider">
-<span>ITEM DESCRIPTION</span>
-<span>AMOUNT (KRW)</span>
-</div>
-<div class="border-t border-slate-200 pt-3 space-y-2">
-<div class="flex justify-between">
-<span class="text-slate-600">1. Target Net Income (목표 실수령액)</span>
-<span class="font-bold text-slate-900" id="recNet">0 원</span>
-</div>
-<div class="flex justify-between">
-<span class="text-slate-600">2. Estimated Tax Buffer (예상 세금 대비)</span>
-<span class="font-bold text-slate-900" id="recTax">0 원</span>
-</div>
-<div class="flex justify-between">
-<span class="text-slate-600">3. Monthly Expenses (월 고정 경비)</span>
-<span class="font-bold text-slate-900 text-red-500" id="recExpenses">+0 원</span>
-</div>
-</div>
-<div class="border-t-2 border-dashed border-slate-200 my-4"></div>
-<!-- Required Monthly Revenue -->
-<div class="flex justify-between items-center bg-slate-100/60 p-3 rounded-xl">
-<span class="font-bold text-slate-700 text-xs sm:text-sm">★ MIN MONTHLY REVENUE (필요 월 매출)</span>
-<span class="text-lg font-black text-indigo-600" id="recGross">0 원</span>
-</div>
-<div class="border-t-2 border-dashed border-slate-200 my-4"></div>
-<!-- Formula details -->
-<div class="space-y-2 text-xs sm:text-sm text-slate-600">
-<div class="flex justify-between">
-<span>Monthly Working Time (총 가동 시간)</span>
-<span id="recTotalHours">0 시간 / 월</span>
-</div>
-<div class="flex justify-between">
-<span>Billable Overhead Rate (비가동율)</span>
-<span id="recOverhead">0 %</span>
-</div>
-<div class="flex justify-between font-semibold text-slate-800">
-<span>Net Billable Time (실 청구 가능 시간)</span>
-<span class="text-indigo-600" id="recBillableHours">0 시간 / 월</span>
-</div>
-</div>
-<div class="border-t-4 border-double border-slate-300 my-6"></div>
-<!-- Final Rates Output -->
-<div class="space-y-4">
-<div class="text-center font-bold text-slate-500 text-xs tracking-wider mb-2">RECOMMENDED MINIMUM RATES</div>
-<div class="grid grid-cols-2 gap-4">
-<div class="bg-indigo-50/50 p-4 rounded-xl text-center border border-indigo-100">
-<div class="text-[11px] text-indigo-600 font-bold mb-1">MIN HOURLY RATE (최소 시급)</div>
-<div class="text-base sm:text-lg font-black text-slate-900" id="recHourlyRate">0 원</div>
-</div>
-<div class="bg-indigo-50/50 p-4 rounded-xl text-center border border-indigo-100">
-<div class="text-[11px] text-indigo-600 font-bold mb-1">MIN DAILY RATE (최소 일급)</div>
-<div class="text-base sm:text-lg font-black text-slate-900" id="recDailyRate">0 원</div>
-</div>
-</div>
-<div class="bg-emerald-50/50 p-4 rounded-xl border border-emerald-100">
-<div class="text-[11px] text-emerald-700 font-bold mb-1 text-center">STANDARD MAN-MONTH RATE (1MM 투입 단가)</div>
-<div class="text-xl sm:text-2xl font-black text-emerald-600 text-center" id="recManMonthRate">0 원</div>
-<p class="text-[10px] text-emerald-600/80 text-center mt-1">※ 1달간 해당 프로젝트에 온전히 100% 리소스를 투입할 때 청구할 최소 금액입니다.</p>
-</div>
-</div>
-<!-- Footer -->
-<div class="text-center border-t-2 border-dashed border-slate-200 pt-6 mt-6 text-[10px] text-slate-400 space-y-1">
-<p class="font-semibold">이 영수증은 귀하의 가치와 비즈니스 유지를 보장합니다.</p>
-<p>Don't undersell yourself. Professional work deserves professional pay.</p>
-<p class="pt-2 font-mono text-[9px] text-slate-300">POWERED BY FREELANCER RATE CALCULATOR V1.0</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<script>
-          function formatKRW(val) {
-            return Math.round(val).toLocaleString('ko-KR') + ' 원';
-          }
-
-          function calculateRates() {
-            // Inputs
-            const targetNet = parseFloat(document.getElementById('targetNet').value) * 10000 || 0;
-            const expenses = parseFloat(document.getElementById('expenses').value) * 10000 || 0;
-            const workingDays = parseFloat(document.getElementById('workingDays').value) || 0;
-            const workingHours = parseFloat(document.getElementById('workingHours').value) || 0;
-            const taxRate = (parseFloat(document.getElementById('taxRate').value) || 0) / 100;
-            const overheadRate = (parseFloat(document.getElementById('overheadRate').value) || 0) / 100;
-
-            if (workingDays <= 0 || workingHours <= 0) {
-              alert("근무 일수와 근무 시간은 1 이상이어야 합니다.");
-              return;
-            }
-
-            // Formulas
-            const targetGross = (targetNet / (1 - taxRate)) + expenses;
-            const taxAmount = targetGross - targetNet - expenses;
-
-            const totalHours = workingDays * workingHours;
-            const billableHours = totalHours * (1 - overheadRate);
-
-            if (billableHours <= 0) {
-              alert("비가동 시간 비율이 너무 높아 청구 가능한 시간이 존재하지 않습니다.");
-              return;
-            }
-
-            const hourlyRate = billableHours > 0 ? (targetGross / billableHours) : 0;
-            const dailyRate = hourlyRate * workingHours;
-            
-            const manMonthRate = targetGross;
-
-            // Update Date
-            const now = new Date();
-            const formattedDate = `DATE: ${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
-            document.getElementById('receiptDate').textContent = formattedDate;
-
-            // Set values to DOM
-            document.getElementById('recNet').textContent = formatKRW(targetNet);
-            document.getElementById('recTax').textContent = formatKRW(taxAmount);
-            document.getElementById('recExpenses').textContent = '+ ' + formatKRW(expenses);
-            document.getElementById('recGross').textContent = formatKRW(targetGross);
-            
-            document.getElementById('recTotalHours').textContent = `${totalHours} 시간`;
-            document.getElementById('recOverhead').textContent = `${overheadRate * 100} %`;
-            document.getElementById('recBillableHours').textContent = `${billableHours.toFixed(1)} 시간`;
-
-            document.getElementById('recHourlyRate').textContent = formatKRW(hourlyRate);
-            document.getElementById('recDailyRate').textContent = formatKRW(dailyRate);
-            document.getElementById('recManMonthRate').textContent = formatKRW(manMonthRate);
-
-            // Show Receipt
-            const receipt = document.getElementById('receiptArea');
-            receipt.classList.remove('hidden');
-            receipt.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          }
-        </script>
-<!-- LOGIC END -->
-</div>
-<!-- Google AdSense - Sleek Glassmorphism Banner -->
-<!-- Web Share API Button -->
-<button class="w-full max-w-3xl bg-gray-800 text-white font-bold py-4 rounded-xl shadow-lg hover:bg-gray-700 transition flex justify-center items-center gap-2 mb-8 whitespace-nowrap" onclick="if(navigator.share) navigator.share({title: '프리랜서 외주 단가 역산기', url: window.location.href})">
-        공유하기
-    </button>
-<!-- Footer -->
-<!-- 📌 상세 가이드 & FAQ 아코디언 (Google E-E-A-T 및 실사용자 가이드라인 100% 충족) -->
-<section class="max-w-4xl mx-auto my-12 px-4">
-<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-sm">
-<div class="border-b border-slate-200 dark:border-slate-800 pb-5 mb-6">
-<h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2.5">
-<span>📖</span> 프리랜서 적정 시급 및 프로젝트 견적 산출 실무 공식 가이드
-      </h3>
-<p class="text-sm text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">정규직 환산 연봉, 비업무 시간(영업/미팅), 4대보험 및 장비 감가상각비를 반영한 손익분기 견적법입니다.</p>
-</div>
-<!-- 공식 원리 & 핵심 기준 -->
-<div class="mb-8">
-<h4 class="text-xs font-black uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-4 flex items-center gap-1.5">
-<span>⚖️</span> 핵심 산출 기준 및 법정 원리
-      </h4>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
-<div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200/80 dark:border-slate-700/80">
-<h4 class="text-base font-bold text-slate-800 dark:text-slate-100 mb-1.5 flex items-center gap-2">
-<span class="w-2 h-2 rounded-full bg-blue-500"></span>실질 가동률(Utilization Rate) 반영
-          </h4>
-<p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">프리랜서의 1년 근로일 중 실제 유급 작업 시간은 약 60%(나머지 40%는 영업, 기획, 수정, 견적)이므로 기본 시급에 1.6~2.0배를 가산해야 합니다.</p>
-</div>
-<div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200/80 dark:border-slate-700/80">
-<h4 class="text-base font-bold text-slate-800 dark:text-slate-100 mb-1.5 flex items-center gap-2">
-<span class="w-2 h-2 rounded-full bg-blue-500"></span>퇴직금 및 복리후생 보정 계수
-          </h4>
-<p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">정규직 근로자가 받는 연차수당, 퇴직연금, 회사 부담 4대보험(약 10%)을 보전하기 위해 최소 25%의 오버헤드 마진을 가산합니다.</p>
-</div>
-<div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200/80 dark:border-slate-700/80">
-<h4 class="text-base font-bold text-slate-800 dark:text-slate-100 mb-1.5 flex items-center gap-2">
-<span class="w-2 h-2 rounded-full bg-blue-500"></span>난이도 및 긴급 납기 프리미엄
-          </h4>
-<p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">야간/주말 작업이 수반되거나 납기가 촉박한 프로젝트는 기본 견적의 30~50%를 긴급 할증으로 청구하는 것이 실무 표준입니다.</p>
-</div>
-</div>
-</div>
-<!-- 자주 묻는 질문 (FAQ) -->
-<div>
-<h4 class="text-xs font-black uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-4 flex items-center gap-1.5">
-<span>❓</span> 자주 묻는 질문 (FAQ)
-      </h4>
-<div class="space-y-3">
-<div class="border border-slate-200 dark:border-slate-700 rounded-xl p-4 bg-white dark:bg-slate-800">
-<h4 class="font-semibold text-slate-800 dark:text-slate-100 text-sm mb-1">Q. 클라이언트가 무리한 수정을 요구할 때 견적 기준은?</h4>
-<p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">A. 계약서에 '무상 수정 N회'를 명시하고, 기획 변경에 따른 추가 수정은 시간당 청구 단가(Hourly Rate)를 사전에 명시하여 추가 청구해야 합니다.</p>
-</div>
-<div class="border border-slate-200 dark:border-slate-700 rounded-xl p-4 bg-white dark:bg-slate-800">
-<h4 class="font-semibold text-slate-800 dark:text-slate-100 text-sm mb-1">Q. 시급 기준과 프로젝트 고정가(Fixed Price) 중 무엇이 유리한가요?</h4>
-<p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">A. 업무 범위(Scope)가 명확한 작업은 고정가가 유리하며, 요구사항이 수시로 변하는 개발/디자인은 시급제(타임차지) 계약이 안전합니다.</p>
-</div>
-<div class="border border-slate-200 dark:border-slate-700 rounded-xl p-4 bg-white dark:bg-slate-800">
-<h4 class="font-semibold text-slate-800 dark:text-slate-100 text-sm mb-1">Q. 계산된 적정 시급보다 시장 단가가 낮을 땐 어떻게 하나요?</h4>
-<p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">A. 단순 외주 수주를 지양하고 템플릿화, 자동화 도구를 활용해 실작업 시간을 단축하여 실질 시급을 극대화하는 전략을 취해야 합니다.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-
-
-
-<!-- 🔗 연관 유틸리티 도구 추천 카드 (사용자 체류시간 증가 & SEO 내부 링크) -->
-<section class="max-w-4xl mx-auto my-8 px-4">
-<div class="bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
-<h3 class="text-base font-black text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-<span>💡</span> 함께 많이 활용하는 필수 계산기 &amp; 도구
-    </h3>
-<div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-<a class="p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-blue-500 hover:shadow-md transition flex items-center justify-between group" href="https://severance.enjoy-onepage.com/" target="_blank" rel="noopener noreferrer">
-<div>
-<div class="text-xs text-blue-600 dark:text-blue-400 font-bold mb-1">추천 유틸리티</div>
-<div class="text-sm font-black text-slate-800 dark:text-slate-100 group-hover:text-blue-600 transition">퇴직금 계산기</div>
-</div>
-<span class="text-slate-400 group-hover:translate-x-1 transition font-bold">→</span>
-</a>
-<a class="p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-blue-500 hover:shadow-md transition flex items-center justify-between group" href="https://overtime.enjoy-onepage.com/" target="_blank" rel="noopener noreferrer">
-<div>
-<div class="text-xs text-blue-600 dark:text-blue-400 font-bold mb-1">추천 유틸리티</div>
-<div class="text-sm font-black text-slate-800 dark:text-slate-100 group-hover:text-blue-600 transition">야근·휴일수당 계산기</div>
-</div>
-<span class="text-slate-400 group-hover:translate-x-1 transition font-bold">→</span>
-</a>
-<a class="p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-blue-500 hover:shadow-md transition flex items-center justify-between group" href="https://unemployed.enjoy-onepage.com/" target="_blank" rel="noopener noreferrer">
-<div>
-<div class="text-xs text-blue-600 dark:text-blue-400 font-bold mb-1">추천 유틸리티</div>
-<div class="text-sm font-black text-slate-800 dark:text-slate-100 group-hover:text-blue-600 transition">실업급여 모의계산기</div>
-</div>
-<span class="text-slate-400 group-hover:translate-x-1 transition font-bold">→</span>
-</a>
-</div>
-</div>
-</section>
-
+  <div class="w-full mx-auto p-6 sm:p-10">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center justify-center p-3 bg-indigo-100 text-indigo-600 rounded-2xl mb-4">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+        </svg>
       </div>
-</div>
-<!-- 2026 Legal Basis & Disclaimer -->
-      <div class="mt-8 mb-4 p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg text-xs text-slate-500 text-center border border-slate-200 dark:border-slate-700">
-        <p>※ 이 도구의 결과는 참고용이며 법적 효력이 없습니다.</p>
-      </div>
+      <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-800 tracking-tight">프리랜서 외주 단가 역산기</h1>
+      <p class="text-slate-500 mt-2 text-sm sm:text-base">목표 월 실수령액을 기반으로 세금, 경비, 비가동 시간을 고려한 현실적인 최소 단가를 계산합니다.</p>
+    </div>
 
-<!-- 🔗 딥리서치 토픽 클러스터: 관련 전문 블로그 가이드 역링크 -->
-<section class="max-w-4xl mx-auto my-6 px-4">
-  <div class="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-800/80 rounded-2xl border border-blue-200/80 dark:border-slate-700 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-3">
-    <div class="flex items-center gap-3">
-      <span class="text-2xl flex-shrink-0">📊</span>
-      <div class="text-left">
-        <div class="text-[11px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">프리랜서 외주 수주 전략</div>
-        <div class="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-100 leading-snug">프리랜서 시간당 공수(M/D) 및 외주 용역 단가 산정 가이드</div>
+    <!-- Quick Presets -->
+    <div class="mb-8 p-4 bg-slate-50 border border-slate-200/80 rounded-2xl">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-xs font-black text-indigo-700 uppercase tracking-wider flex items-center gap-1.5">
+          <span>⚡</span> 직무별 빠른 단가 프리셋
+        </span>
+        <span class="text-[11px] text-slate-500">클릭 시 권장 수치가 즉시 반영됩니다</span>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+        <button type="button" class="preset-btn p-3 bg-white border border-slate-200 rounded-xl text-left shadow-sm" onclick="applyPreset('designer')">
+          <div class="text-xs font-black text-slate-800">🎨 UI/UX 디자이너</div>
+          <div class="text-[11px] text-slate-500 mt-1">실수령 450만 · 경비 40만</div>
+        </button>
+        <button type="button" class="preset-btn p-3 bg-white border border-slate-200 rounded-xl text-left shadow-sm" onclick="applyPreset('developer')">
+          <div class="text-xs font-black text-slate-800">💻 웹/앱 개발자</div>
+          <div class="text-[11px] text-slate-500 mt-1">실수령 650만 · 경비 60만</div>
+        </button>
+        <button type="button" class="preset-btn p-3 bg-white border border-slate-200 rounded-xl text-left shadow-sm" onclick="applyPreset('video')">
+          <div class="text-xs font-black text-slate-800">🎬 영상/모션그래픽</div>
+          <div class="text-[11px] text-slate-500 mt-1">실수령 400만 · 경비 35만</div>
+        </button>
+        <button type="button" class="preset-btn p-3 bg-white border border-slate-200 rounded-xl text-left shadow-sm" onclick="applyPreset('marketing')">
+          <div class="text-xs font-black text-slate-800">✍️ 기획/마케터</div>
+          <div class="text-[11px] text-slate-500 mt-1">실수령 420만 · 경비 30만</div>
+        </button>
       </div>
     </div>
-    <a href="https://finance-kr.enjoy-onepage.com/2026/09/25/대안신용평가-대출조건/" target="_blank" rel="noopener noreferrer" class="shrink-0 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition shadow-sm hover:shadow flex items-center gap-1.5">
-      <span>단가 가이드 읽기</span>
-      <span>→</span>
-    </a>
+
+    <!-- Main Grid: Form + Receipt Area -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <!-- Left Column: Form -->
+      <div class="lg:col-span-6 w-full">
+        <form class="space-y-6" id="calcForm" onsubmit="return false;">
+          <!-- Section 1: Income & Expenses -->
+          <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
+            <h3 class="text-md font-bold text-slate-700 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-indigo-500"></span> 목표 수입 및 지출
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">목표 월 실수령액 (만원)</label>
+                <div class="relative">
+                  <input class="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium text-slate-800" id="targetNet" min="1" placeholder="예: 500" required="" type="number" value="500" aria-label="목표 월 실수령액" inputmode="numeric">
+                  <span class="absolute right-4 top-3.5 text-slate-400 font-medium text-sm">만원</span>
+                </div>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">월 고정 경비 (만원)</label>
+                <div class="relative">
+                  <input class="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium text-slate-800" id="expenses" min="0" placeholder="임대료, 프로그램 구독료 등" required="" type="number" value="50" aria-label="월 고정 경비" inputmode="numeric">
+                  <span class="absolute right-4 top-3.5 text-slate-400 font-medium text-sm">만원</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Time & Overhead -->
+          <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
+            <h3 class="text-md font-bold text-slate-700 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-indigo-500"></span> 근무 환경 설정
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">월 근무 일수 (일)</label>
+                <div class="relative">
+                  <input class="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium text-slate-800" id="workingDays" max="31" min="1" placeholder="예: 20" required="" type="number" value="20" aria-label="월 근무 일수" inputmode="numeric">
+                  <span class="absolute right-4 top-3.5 text-slate-400 font-medium text-sm">일</span>
+                </div>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">하루 실제 집중 근무 시간 (시간)</label>
+                <div class="relative">
+                  <input class="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium text-slate-800" id="workingHours" max="24" min="1" placeholder="예: 6" required="" type="number" value="6" aria-label="하루 실제 집중 근무 시간" inputmode="numeric">
+                  <span class="absolute right-4 top-3.5 text-slate-400 font-medium text-sm">시간</span>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+              <div>
+                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">비가동 시간 비율 (%)</label>
+                <div class="relative">
+                  <input class="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium text-slate-800" id="overheadRate" max="90" min="0" placeholder="영업, 미팅, 학습 시간 비율" required="" type="number" value="30" aria-label="비가동 시간 비율" inputmode="numeric">
+                  <span class="absolute right-4 top-3.5 text-slate-400 font-medium text-sm">%</span>
+                </div>
+                <p class="text-[11px] text-slate-400 mt-1">※ 전체 업무 중 영업, 기획, 수정 등 청구 불가 시간 (평균 25~35%)</p>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">세금 + 건강/연금 예상 요율 (%)</label>
+                <div class="relative">
+                  <input class="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium text-slate-800" id="taxRate" max="50" min="0" placeholder="예: 프리랜서 3.3% + 건강보험 등" required="" type="number" value="15" aria-label="세금 및 건강연금 요율" inputmode="numeric">
+                  <span class="absolute right-4 top-3.5 text-slate-400 font-medium text-sm">%</span>
+                </div>
+                <p class="text-[11px] text-slate-400 mt-1">※ 종합소득세 및 지역 건보/국민연금 대비 (평균 15~20% 권장)</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Button -->
+          <button class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl shadow-lg shadow-indigo-100 hover:shadow-indigo-200 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2 whitespace-nowrap" onclick="calculateRates()" type="button">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+            </svg>
+            <span>최소 단가 영수증 즉시 재계산</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Right Column: Sticky Receipt Output & Immediate AdSlot -->
+      <div class="lg:col-span-6 lg:sticky lg:top-8 w-full">
+        <!-- Action Toolbar Above Receipt -->
+        <div class="flex flex-wrap gap-2 justify-center mb-3">
+          <button type="button" class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl shadow-sm transition active:scale-95" onclick="downloadReceiptImage()">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+            <span>영수증 이미지 다운로드 (PNG)</span>
+          </button>
+          <button type="button" class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold rounded-xl shadow-sm transition active:scale-95" onclick="copyResultSummary()">
+            <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+            <span>요약 텍스트 복사</span>
+          </button>
+          <button type="button" class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold rounded-xl shadow-sm transition active:scale-95" onclick="shareRateCard()">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+            <span>공유하기</span>
+          </button>
+        </div>
+
+        <!-- The Receipt Element -->
+        <div class="receipt" id="receiptArea">
+          <div class="bg-[#FCFBF7] text-slate-800 p-6 sm:p-8 rounded-2xl border-2 border-dashed border-slate-300 relative shadow-inner font-mono text-sm leading-relaxed">
+            <!-- Receipt Header -->
+            <div class="text-center border-b-2 border-dashed border-slate-200 pb-5 mb-5">
+              <h2 class="text-xl font-black tracking-widest text-slate-900">FREELANCE INVOICE REVERSE</h2>
+              <p class="text-xs text-slate-400 mt-1" id="receiptDate">DATE: 2026.10.20 00:00:00</p>
+              <p class="text-xs text-emerald-600 font-bold">STATUS: OFFICIAL ESTIMATE GENERATED</p>
+            </div>
+
+            <!-- Receipt Breakdown Table -->
+            <div class="space-y-3">
+              <div class="flex justify-between items-center text-xs text-slate-500 font-semibold tracking-wider">
+                <span>ITEM DESCRIPTION</span>
+                <span>AMOUNT (KRW)</span>
+              </div>
+              <div class="border-t border-slate-200 pt-3 space-y-2">
+                <div class="flex justify-between">
+                  <span class="text-slate-600">1. Target Net Income (목표 실수령)</span>
+                  <span class="font-bold text-slate-900" id="recNet">5,000,000 원</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-600">2. Estimated Tax Buffer (예상 세금/보험)</span>
+                  <span class="font-bold text-slate-900" id="recTax">882,353 원</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-slate-600">3. Monthly Expenses (월 고정 경비)</span>
+                  <span class="font-bold text-red-500" id="recExpenses">+ 500,000 원</span>
+                </div>
+              </div>
+
+              <!-- Required Monthly Revenue -->
+              <div class="flex justify-between items-center bg-slate-100/80 p-3.5 rounded-xl border border-slate-200 my-3">
+                <span class="font-bold text-slate-800 text-xs sm:text-sm">★ MIN MONTHLY REVENUE (필요 총매출)</span>
+                <span class="text-lg font-black text-indigo-600" id="recGross">6,382,353 원</span>
+              </div>
+
+              <!-- Billable Time Details -->
+              <div class="space-y-1.5 text-xs text-slate-600 pt-1">
+                <div class="flex justify-between">
+                  <span>총 가동 시간 (Total Monthly Hours)</span>
+                  <span id="recTotalHours">120 시간 / 월</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>비가동 시간 비율 (Overhead 30%)</span>
+                  <span id="recOverhead">30 %</span>
+                </div>
+                <div class="flex justify-between font-bold text-slate-800">
+                  <span>실 청구 가능 시간 (Net Billable)</span>
+                  <span class="text-indigo-600" id="recBillableHours">84.0 시간 / 월</span>
+                </div>
+              </div>
+
+              <div class="border-t-4 border-double border-slate-300 my-4"></div>
+
+              <!-- Recommended Minimum Rates -->
+              <div class="space-y-3">
+                <div class="text-center font-bold text-slate-500 text-xs tracking-wider">RECOMMENDED MINIMUM RATES</div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div class="bg-indigo-50/60 p-3.5 rounded-xl text-center border border-indigo-100">
+                    <div class="text-[11px] text-indigo-600 font-bold mb-1">최소 권장 시급 (Hourly)</div>
+                    <div class="text-base sm:text-lg font-black text-slate-900" id="recHourlyRate">75,980 원</div>
+                  </div>
+                  <div class="bg-indigo-50/60 p-3.5 rounded-xl text-center border border-indigo-100">
+                    <div class="text-[11px] text-indigo-600 font-bold mb-1">최소 일급 (Daily, 1MD)</div>
+                    <div class="text-base sm:text-lg font-black text-slate-900" id="recDailyRate">455,882 원</div>
+                  </div>
+                </div>
+
+                <div class="bg-emerald-50/60 p-4 rounded-xl border border-emerald-100 text-center">
+                  <div class="text-[11px] text-emerald-700 font-bold mb-1">표준 맨먼스 투입 단가 (1MM 월 계약가)</div>
+                  <div class="text-xl sm:text-2xl font-black text-emerald-600" id="recManMonthRate">6,382,353 원</div>
+                  <p class="text-[10px] text-emerald-600/80 mt-1">※ 1개 프로젝트에 한 달간 100% 리소스를 전담할 때 청구할 마지노선입니다.</p>
+                </div>
+              </div>
+
+              <!-- Negotiation Matrix -->
+              <div class="mt-4 p-3 bg-slate-100/70 rounded-xl border border-slate-200 text-xs space-y-1.5">
+                <div class="font-bold text-slate-700 flex items-center justify-between">
+                  <span>💡 클라이언트 제안 가이드</span>
+                  <span class="text-[10px] text-indigo-600 font-semibold">네고 대비 버퍼</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2 pt-1 text-[11px]">
+                  <div class="bg-white p-2.5 rounded-lg border border-slate-200">
+                    <div class="text-slate-500">최저 수주 마지노선</div>
+                    <div class="font-black text-slate-800" id="recFloorRate">75,980 원 / h</div>
+                  </div>
+                  <div class="bg-indigo-50 p-2.5 rounded-lg border border-indigo-100">
+                    <div class="text-indigo-600 font-semibold">권장 견적서 제안가 (+15%)</div>
+                    <div class="font-black text-indigo-700" id="recOfferRate">87,377 원 / h</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Receipt Footer -->
+              <div class="text-center border-t-2 border-dashed border-slate-200 pt-5 mt-5 text-[10px] text-slate-400 space-y-1">
+                <p class="font-semibold text-slate-500">"Don't undersell yourself. Professional work deserves professional pay."</p>
+                <p class="font-mono text-[9px] text-slate-300">freelance-rate-calc.enjoy-onepage.com</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 영수증 바로 밑 고시인성 애드센스 배너 (Viewability 90% 이상 타겟) -->
+        <div class="manual-ad-box ad-receipt-banner mt-6 text-center" style="width: 100%; min-height: 250px;">
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-2228289204702106"
+               data-ad-slot="3416334507"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 상세 가이드 & FAQ 아코디언 -->
+<section class="max-w-4xl mx-auto my-12 px-4">
+  <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-sm">
+    <div class="border-b border-slate-200 dark:border-slate-800 pb-5 mb-6">
+      <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight flex items-center gap-2.5">
+        <span>📖</span> 프리랜서 적정 시급 및 프로젝트 견적 산출 실무 가이드
+      </h3>
+      <p class="text-sm text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">정규직 환산 연봉, 비업무 시간(영업/미팅), 4대보험 및 장비 감가상각비를 반영한 손익분기 견적법입니다.</p>
+    </div>
+
+    <!-- 핵심 산출 기준 -->
+    <div class="mb-8">
+      <h4 class="text-xs font-black uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-4 flex items-center gap-1.5">
+        <span>⚖️</span> 핵심 산출 기준 및 법정 원리
+      </h4>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+        <div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200/80 dark:border-slate-700/80">
+          <h4 class="text-base font-bold text-slate-800 dark:text-slate-100 mb-1.5 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-blue-500"></span>실질 가동률(Utilization Rate) 반영
+          </h4>
+          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">프리랜서의 1년 근로일 중 실제 유급 작업 시간은 약 60~70%(나머지는 영업, 미팅, 수정)이므로 기본 시급에 1.4~1.6배를 가산해야 합니다.</p>
+        </div>
+        <div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200/80 dark:border-slate-700/80">
+          <h4 class="text-base font-bold text-slate-800 dark:text-slate-100 mb-1.5 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-blue-500"></span>퇴직금 및 복리후생 보정 계수
+          </h4>
+          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">정규직과 달리 4대보험 사업주 부담분과 퇴직금이 없으므로 연봉 단순 나누기 대비 최소 20~25%의 마진을 확보해야 합니다.</p>
+        </div>
+        <div class="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200/80 dark:border-slate-700/80">
+          <h4 class="text-base font-bold text-slate-800 dark:text-slate-100 mb-1.5 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-blue-500"></span>고정 운영비 및 감가상각비
+          </h4>
+          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">작업실 임대료, 소프트웨어 구독료(Adobe, JetBrains 등), PC 장비 감가상각비를 시간당 단가에 선반영해야 적자가 나지 않습니다.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<footer class="w-full max-w-3xl text-center text-sm text-white/70 py-4 border-t border-white/20">
-<div class="flex justify-center gap-4 mb-2">
-<a class="hover:text-white transition" href="terms.html">이용약관</a>
-<span>|</span>
-<a class="hover:text-white transition" href="privacy.html">개인정보처리방침</a>
-</div>
-<p>© 2026 OnePage Factory. All rights reserved.</p>
-</footer>
-<!-- 하단 대형 배너 (푸터 직전) -->
-<div class="manual-ad-box ad-bottom-banner" style="width: 100%; max-width: 960px; margin: 24px auto 16px; text-align: center;min-height:280px;">
-<ins class="adsbygoogle" data-ad-client="ca-pub-2228289204702106" data-ad-format="auto" data-ad-slot="3416334507" data-full-width-responsive="true" style="display:block;min-height:280px;"></ins>
-<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
-<!-- 하단 대형 배너 (푸터 직전) -->
-<!-- Preemptive UX Helper: Auto comma formatting & Result sharing -->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Auto comma on number/text inputs with currency hints
-      const moneyInputs = document.querySelectorAll('input[type="text"], input[type="number"], input[inputmode="numeric"]');
-      moneyInputs.forEach(input => {
-        // Skip specific inputs like year, month, date, percent, id
-        const name = (input.name || input.id || '').toLowerCase();
-        if (name.includes('year') || name.includes('month') || name.includes('day') || name.includes('rate') || name.includes('percent') || name.includes('age') || name.includes('score')) {
-          return;
-        }
-        
-        // Listen to input
-        input.addEventListener('input', function(e) {
-          if (this.type === 'number') return; // native number handles own UI
-          let val = this.value.replace(/[^0-9]/g, '');
-          if (val) {
-            this.value = Number(val).toLocaleString('ko-KR');
-          }
-        });
-      });
 
-      // Inject Global Result Copy Function if not exists
-      window.copyResultToClipboard = function(textToCopy, customBtn) {
-        if (!textToCopy) {
-          const resEl = document.querySelector('#result, .result-box, [id*="result"], [class*="result"]');
-          textToCopy = resEl ? resEl.innerText.trim() : window.location.href;
-        }
-        navigator.clipboard.writeText(textToCopy + "\n\n👉 계산기 바로가기: " + window.location.href).then(() => {
-          showToastNotification('계산 결과가 클립보드에 복사되었습니다!');
-        }).catch(() => {
-          showToastNotification('복사되었습니다: ' + window.location.href);
-        });
-      };
-
-      function showToastNotification(msg) {
-        let toast = document.getElementById('global-ux-toast');
-        if (!toast) {
-          toast = document.createElement('div');
-          toast.id = 'global-ux-toast';
-          toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1e293b;color:#fff;padding:12px 24px;border-radius:9999px;font-size:14px;font-weight:600;box-shadow:0 10px 25px rgba(0,0,0,0.2);z-index:9999;transition:all 0.3s ease;opacity:0;pointer-events:none;';
-          document.body.appendChild(toast);
-        }
-        toast.textContent = msg;
-        toast.style.opacity = '1';
-        toast.style.transform = 'translateX(-50%) translateY(0)';
-        setTimeout(() => {
-          toast.style.opacity = '0';
-          toast.style.transform = 'translateX(-50%) translateY(10px)';
-        }, 2200);
-      }
-    });
-  </script>
-<!-- Global UX Helper: Universal Result Copy & Toast -->
-<script>
-    window.showToastNotification = function(msg) {
-      let toast = document.getElementById('global-ux-toast');
-      if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'global-ux-toast';
-        toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1e293b;color:#fff;padding:12px 24px;border-radius:9999px;font-size:14px;font-weight:600;box-shadow:0 10px 25px rgba(0,0,0,0.2);z-index:9999;transition:all 0.3s ease;opacity:0;pointer-events:none;';
-        document.body.appendChild(toast);
-      }
-      toast.textContent = msg;
-      toast.style.opacity = '1';
-      toast.style.transform = 'translateX(-50%) translateY(0)';
-      setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateX(-50%) translateY(10px)';
-      }, 2200);
-    };
-
-    window.copyResultToClipboard = function(customText) {
-      let textToCopy = customText;
-      if (!textToCopy) {
-        const resEl = document.querySelector('#resultBox, .result-card, #result, [id*="result"], [class*="result"], [id*="res"]');
-        textToCopy = resEl ? resEl.innerText.trim() : document.title;
-      }
-      const fullText = textToCopy + "\n\n👉 바로가기: " + window.location.href;
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(fullText).then(() => {
-          window.showToastNotification('결과가 클립보드에 복사되었습니다! 🎉');
-        }).catch(() => fallbackCopy(fullText));
-      } else {
-        fallbackCopy(fullText);
-      }
-    };
-
-    function fallbackCopy(text) {
-      const ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.position = 'fixed';
-      ta.style.left = '-9999px';
-      document.body.appendChild(ta);
-      ta.focus();
-      ta.select();
-      try {
-        document.execCommand('copy');
-        window.showToastNotification('결과가 클립보드에 복사되었습니다! 🎉');
-      } catch (e) {
-        window.showToastNotification('복사에 실패했습니다.');
-      }
-      document.body.removeChild(ta);
-    }
-  </script>
-
-    <!-- 심층 가이드북 바로가기 (4-1-4 헌법 준수) -->
-    
-
-
-    <!-- ADSENSE START: mid -->
-<div class="ad-box ad-mid" style="max-width:1080px;margin:16px auto;padding:0 14px;text-align:center;">
-  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2228289204702106" data-ad-slot="1186914926" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<!-- 추가 하단 배너 (가이드 하단) -->
+<div class="manual-ad-box ad-bottom-banner my-6 text-center">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-2228289204702106"
+       data-ad-slot="1186914926"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
   <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 </div>
-<!-- ADSENSE END: mid -->
 
-<!-- E-E-A-T FAQ Section (16-5 헌법 준수) -->
-    <section class="mt-8 mb-8 space-y-3">
-      <h2 class="text-xl font-bold text-gray-900 mb-4">자주 묻는 질문 (FAQ)</h2>
-      <details class="bg-gray-50 p-4 rounded-xl border border-gray-200 group">
-        <summary class="font-bold text-gray-800 cursor-pointer list-none flex justify-between items-center">
-          <span>입력한 데이터가 외부 서버에 저장되나요?</span>
-          <span class="text-blue-600 group-open:rotate-180 transition transform">▼</span>
-        </summary>
-        <p class="mt-3 text-gray-600 text-xs leading-relaxed">
-          아닙니다. 100% 사용자의 기기 브라우저 메모리 내에서만 연산되며, 어떠한 금융/개인 데이터도 외부로 전송되지 않습니다.
-        </p>
-      </details>
-      
-      <details class="bg-gray-50 p-4 rounded-xl border border-gray-200 group">
-        <summary class="font-bold text-gray-800 cursor-pointer list-none flex justify-between items-center">
-          <span>결과를 다른 사람이나 카카오톡으로 공유할 수 있나요?</span>
-          <span class="text-blue-600 group-open:rotate-180 transition transform">▼</span>
-        </summary>
-        <p class="mt-3 text-gray-600 text-xs leading-relaxed">
-          '결과 복사하기' 버튼을 누르면 정돈된 요약 텍스트와 바로가기 주소가 클립보드에 자동 복사됩니다.
-        </p>
-      </details>
-    </section>
+<!-- Footer -->
+<footer class="w-full max-w-3xl text-center text-sm text-slate-500 py-6 border-t border-slate-200">
+  <div class="flex justify-center gap-4 mb-2">
+    <a class="hover:text-slate-800 transition" href="terms.html">이용약관</a>
+    <span>|</span>
+    <a class="hover:text-slate-800 transition" href="privacy.html">개인정보처리방침</a>
+  </div>
+  <p>© 2026 OnePage Factory. All rights reserved.</p>
+</footer>
 
+<!-- JavaScript Core Logic -->
+<script>
+  // Presets definition
+  const PRESETS = {
+    designer: { net: 450, exp: 40, days: 20, hours: 6, overhead: 30, tax: 15 },
+    developer: { net: 650, exp: 60, days: 20, hours: 7, overhead: 25, tax: 18 },
+    video: { net: 400, exp: 35, days: 22, hours: 7, overhead: 30, tax: 15 },
+    marketing: { net: 420, exp: 30, days: 20, hours: 6, overhead: 35, tax: 15 }
+  };
+
+  function applyPreset(key) {
+    const p = PRESETS[key];
+    if (!p) return;
+    document.getElementById('targetNet').value = p.net;
+    document.getElementById('expenses').value = p.exp;
+    document.getElementById('workingDays').value = p.days;
+    document.getElementById('workingHours').value = p.hours;
+    document.getElementById('overheadRate').value = p.overhead;
+    document.getElementById('taxRate').value = p.tax;
+    calculateRates();
+    showToast('⚡ ' + key.toUpperCase() + ' 프리셋 수치가 적용되었습니다!');
+  }
+
+  function showToast(msg) {
+    const el = document.getElementById('toastMsg');
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(() => {
+      el.classList.remove('show');
+    }, 2200);
+  }
+
+  function formatKRW(val) {
+    return Math.round(val).toLocaleString('ko-KR') + ' 원';
+  }
+
+  function calculateRates() {
+    const targetNet = (parseFloat(document.getElementById('targetNet').value) || 0) * 10000;
+    const expenses = (parseFloat(document.getElementById('expenses').value) || 0) * 10000;
+    const workingDays = parseFloat(document.getElementById('workingDays').value) || 0;
+    const workingHours = parseFloat(document.getElementById('workingHours').value) || 0;
+    const taxRate = (parseFloat(document.getElementById('taxRate').value) || 0) / 100;
+    const overheadRate = (parseFloat(document.getElementById('overheadRate').value) || 0) / 100;
+
+    if (workingDays <= 0 || workingHours <= 0) return;
+
+    const safeTax = Math.min(taxRate, 0.8);
+    const targetGross = (targetNet / (1 - safeTax)) + expenses;
+    const taxAmount = targetGross - targetNet - expenses;
+
+    const totalHours = workingDays * workingHours;
+    const safeOverhead = Math.min(overheadRate, 0.9);
+    const billableHours = Math.max(totalHours * (1 - safeOverhead), 1);
+
+    const hourlyRate = billableHours > 0 ? (targetGross / billableHours) : 0;
+    const dailyRate = hourlyRate * workingHours;
+    const manMonthRate = targetGross;
+    const offerRate = hourlyRate * 1.15;
+
+    // Date
+    const now = new Date();
+    const formattedDate = `DATE: ${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+    document.getElementById('receiptDate').textContent = formattedDate;
+
+    // DOM Updates
+    document.getElementById('recNet').textContent = formatKRW(targetNet);
+    document.getElementById('recTax').textContent = formatKRW(taxAmount);
+    document.getElementById('recExpenses').textContent = '+ ' + formatKRW(expenses);
+    document.getElementById('recGross').textContent = formatKRW(targetGross);
+
+    document.getElementById('recTotalHours').textContent = `${totalHours} 시간 / 월`;
+    document.getElementById('recOverhead').textContent = `${Math.round(safeOverhead * 100)} %`;
+    document.getElementById('recBillableHours').textContent = `${billableHours.toFixed(1)} 시간 / 월`;
+
+    document.getElementById('recHourlyRate').textContent = formatKRW(hourlyRate);
+    document.getElementById('recDailyRate').textContent = formatKRW(dailyRate);
+    document.getElementById('recManMonthRate').textContent = formatKRW(manMonthRate);
+
+    document.getElementById('recFloorRate').textContent = formatKRW(hourlyRate) + ' / h';
+    document.getElementById('recOfferRate').textContent = formatKRW(offerRate) + ' / h';
+  }
+
+  function copyResultSummary() {
+    const net = document.getElementById('recNet').textContent;
+    const gross = document.getElementById('recGross').textContent;
+    const hourly = document.getElementById('recHourlyRate').textContent;
+    const daily = document.getElementById('recDailyRate').textContent;
+    const monthly = document.getElementById('recManMonthRate').textContent;
+    const offer = document.getElementById('recOfferRate').textContent;
+
+    const text = `🧾 [프리랜서 외주 단가 역산 견적서]
+• 목표 월 실수령액: ${net}
+• 필요 월 총매출: ${gross}
+----------------------------------
+★ 최소 권장 시급: ${hourly}
+★ 최소 일급 (1MD): ${daily}
+★ 1MM 표준 투입단가: ${monthly}
+💡 협상 권장 제안가: ${offer}
+----------------------------------
+📌 단가 계산기: https://freelance-rate-calc.enjoy-onepage.com`;
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => showToast('📋 견적 요약이 클립보드에 복사되었습니다!'));
+    } else {
+      showToast('복사 기능을 지원하지 않는 브라우저입니다.');
+    }
+  }
+
+  function shareRateCard() {
+    if (navigator.share) {
+      navigator.share({
+        title: '프리랜서 외주 단가 역산기',
+        text: '목표 실수령액 기준으로 세금과 비가동 시간을 반영한 내 적정 외주 단가를 확인해보세요!',
+        url: window.location.href
+      }).catch(() => {});
+    } else {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(window.location.href);
+        showToast('🔗 사이트 링크가 복사되었습니다!');
+      }
+    }
+  }
+
+  function downloadReceiptImage() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 800;
+    canvas.height = 1120;
+    const ctx = canvas.getContext('2d');
+
+    // Background
+    ctx.fillStyle = '#f8f7f2';
+    ctx.fillRect(0, 0, 800, 1120);
+
+    // Card background with dashed border
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(40, 40, 720, 1040);
+    ctx.lineWidth = 3;
+    ctx.setLineDash([8, 8]);
+    ctx.strokeStyle = '#cbd5e1';
+    ctx.strokeRect(40, 40, 720, 1040);
+    ctx.setLineDash([]);
+
+    // Header
+    ctx.fillStyle = '#0f172a';
+    ctx.font = 'bold 30px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('FREELANCE INVOICE REVERSE', 400, 110);
+
+    ctx.fillStyle = '#64748b';
+    ctx.font = '15px monospace';
+    const now = new Date();
+    const dateStr = now.getFullYear() + '.' + String(now.getMonth() + 1).padStart(2, '0') + '.' + String(now.getDate()).padStart(2, '0');
+    ctx.fillText('DATE: ' + dateStr + ' | STATUS: VERIFIED ESTIMATE', 400, 145);
+
+    // Divider
+    ctx.setLineDash([4, 4]);
+    ctx.strokeStyle = '#e2e8f0';
+    ctx.beginPath();
+    ctx.moveTo(70, 175);
+    ctx.lineTo(730, 175);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Item Table
+    function drawRow(label, value, y, isBold, color) {
+      ctx.textAlign = 'left';
+      ctx.font = isBold ? 'bold 20px sans-serif' : '18px sans-serif';
+      ctx.fillStyle = isBold ? '#0f172a' : '#475569';
+      ctx.fillText(label, 70, y);
+      ctx.textAlign = 'right';
+      ctx.fillStyle = color || '#1e293b';
+      ctx.fillText(value, 730, y);
+    }
+
+    drawRow('1. 목표 월 실수령액', document.getElementById('recNet').textContent, 230);
+    drawRow('2. 예상 세금/보험 대비 (Buffer)', document.getElementById('recTax').textContent, 275);
+    drawRow('3. 월 고정 경비 (Expenses)', document.getElementById('recExpenses').textContent, 320, false, '#ef4444');
+
+    // Revenue Highlight Box
+    ctx.fillStyle = '#f1f5f9';
+    ctx.fillRect(70, 355, 660, 60);
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#334155';
+    ctx.font = 'bold 20px sans-serif';
+    ctx.fillText('★ 필요 월 매출 (Gross Revenue)', 90, 393);
+    ctx.textAlign = 'right';
+    ctx.fillStyle = '#4f46e5';
+    ctx.font = 'bold 24px sans-serif';
+    ctx.fillText(document.getElementById('recGross').textContent, 710, 394);
+
+    drawRow('실 청구 가능 시간 (Net Billable)', document.getElementById('recBillableHours').textContent, 465);
+
+    // Rates Box
+    ctx.fillStyle = '#eef2ff';
+    ctx.fillRect(70, 505, 660, 270);
+    ctx.strokeStyle = '#c7d2fe';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(70, 505, 660, 270);
+
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#4f46e5';
+    ctx.font = 'bold 18px sans-serif';
+    ctx.fillText('RECOMMENDED MINIMUM RATES', 400, 545);
+
+    ctx.fillStyle = '#1e293b';
+    ctx.font = 'bold 22px sans-serif';
+    ctx.fillText('최소 시급 (Hourly): ' + document.getElementById('recHourlyRate').textContent, 400, 595);
+    ctx.fillText('최소 일급 (Daily 1MD): ' + document.getElementById('recDailyRate').textContent, 400, 645);
+
+    ctx.fillStyle = '#059669';
+    ctx.font = 'bold 26px sans-serif';
+    ctx.fillText('1MM 투입 단가: ' + document.getElementById('recManMonthRate').textContent, 400, 715);
+    ctx.font = '14px sans-serif';
+    ctx.fillStyle = '#10b981';
+    ctx.fillText('※ 해당 프로젝트 1달 100% 전담 시 기준', 400, 745);
+
+    // Tip Box
+    ctx.fillStyle = '#f8fafc';
+    ctx.fillRect(70, 805, 660, 115);
+    ctx.strokeStyle = '#e2e8f0';
+    ctx.strokeRect(70, 805, 660, 115);
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#0f172a';
+    ctx.font = 'bold 16px sans-serif';
+    ctx.fillText('💡 클라이언트 견적 제안 팁', 90, 837);
+    ctx.font = '15px sans-serif';
+    ctx.fillStyle = '#475569';
+    ctx.fillText('• 최저 마지노선: ' + document.getElementById('recHourlyRate').textContent + ' / 시간', 90, 870);
+    ctx.fillText('• 권장 최초 제안가 (+15% 네고 버퍼): ' + document.getElementById('recOfferRate').textContent, 90, 902);
+
+    // Watermark
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '14px sans-serif';
+    ctx.fillText('Don't undersell yourself. Professional work deserves professional pay.', 400, 965);
+    ctx.font = 'bold 15px monospace';
+    ctx.fillStyle = '#64748b';
+    ctx.fillText('https://freelance-rate-calc.enjoy-onepage.com', 400, 995);
+
+    // Download
+    const link = document.createElement('a');
+    link.download = '내_외주단가_영수증.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    showToast('📸 영수증 이미지가 다운로드되었습니다!');
+  }
+
+  // Auto calculate on input change & initial load
+  document.addEventListener('DOMContentLoaded', function() {
+    const inputs = document.querySelectorAll('#calcForm input');
+    inputs.forEach(input => {
+      input.addEventListener('input', calculateRates);
+    });
+    calculateRates();
+  });
+</script>
 </body>
 </html>
